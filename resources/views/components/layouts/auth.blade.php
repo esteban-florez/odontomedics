@@ -24,9 +24,9 @@
     <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative" style="background:url({{ asset('img/auth-bg.jpg') }}) no-repeat center center;">
       <div class="auth-box row">
         @if (!$onboarding)
-          <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url({{ asset('img/auth-image.jpg') }});">
+          <div class="col-lg-7 modal-bg-img" style="background-image: url({{ asset('img/auth-image.jpg') }});">
           </div>
-          <div class="col-lg-5 col-md-7 bg-white">
+          <div class="col-lg-5 bg-white">
             <div class="p-3">
               <div class="text-center">
                 <img src="{{ asset('img/auth-decoration.png') }}" alt="wrapkit">

@@ -2,34 +2,6 @@
   letter-spacing: -0.1em !important;
 }
 
-.flex {
-  display: flex !important;
-}
-
-.flex-col {
-  flex-direction: column !important;
-}
-
-.items-center {
-  align-items: center !important;
-}
-
-.justify-center {
-  justify-content: center !important;
-}
-
-.justify-between {
-  justify-content: space-between !important;
-}
-
-.justify-evenly {
-  justify-content: space-evenly !important;
-}
-
-.justify-around {
-  justify-content: space-around !important;
-}
-
 .icon-sm {
   height: 1.2em;
   width: 1.2em;
