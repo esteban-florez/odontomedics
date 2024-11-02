@@ -5,9 +5,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon.png') }}">
   <title>Odontomedics - Clínica Odontológica</title>
-  <link href="{{ asset('css/styles.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/css/styles.min.css') }}" rel="stylesheet">
+  @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 
 <body>
@@ -18,8 +19,7 @@
         <div class="lds-pos"></div>
       </div>
     </div>
-    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative"
-      style="background:url({{ asset('img/auth-bg.jpg') }}) no-repeat center center;">
+    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative" style="background:url({{ asset('img/auth-bg.jpg') }}) no-repeat center center;">
       <div class="auth-box row">
         <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url({{ asset('img/auth-image.jpg') }});">
         </div>
@@ -34,8 +34,8 @@
       </div>
     </div>
   </div>
-  <script src="{{ asset('js/vendor/jquery.min.js') }}"></script>
-  <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('vendor/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/js/bootstrap.min.js') }}"></script>
   <script>
     $(".preloader").fadeOut();
   </script>
