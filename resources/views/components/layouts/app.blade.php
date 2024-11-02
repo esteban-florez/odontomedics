@@ -136,8 +136,10 @@
                 <a class="dropdown-item mt-2" href="javascript:void(0)"><i data-feather="user" class="icon-sm me-2 ms-1"></i>
                   Mi Perfil</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="power" class="icon-sm me-2 ms-1"></i>
-                  Cerrar Sesión</a>
+                <a class="dropdown-item" href="javascript:void(0)" data-logout>
+                  <i data-feather="power" class="icon-sm me-2 ms-1"></i>
+                  Cerrar Sesión
+                </a>
               </div>
             </li>
           </ul>
@@ -315,9 +317,14 @@
             <li class="list-divider"></li>
             <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
 
-            <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="authentication-login1.html"
-                aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span
-                  class="hide-menu">Logout</span></a></li>
+            <li class="sidebar-item">
+              <a class="sidebar-link sidebar-link" aria-expanded="false" href="javascript:void(0)" data-logout>
+                <i data-feather="log-out" class="feather-icon"></i>
+                <span class="hide-menu">
+                  Cerrar Sesión
+                </span>
+                </a>
+            </li>
             <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                 aria-expanded="false"><i data-feather="crosshair" class="feather-icon"></i><span
                   class="hide-menu">Multi
@@ -388,6 +395,9 @@
       </footer>
     </div>
   </div>
+  <form method="POST" action="{{ route('logout') }}" id="logout">
+    @csrf @method('DELETE')
+  </form>
   <script src="{{ asset('vendor/js/jquery.min.js') }}"></script>
   <script src="{{ asset('vendor/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('vendor/js/app-style-switcher.min.js') }}"></script>
@@ -395,6 +405,13 @@
   <script src="{{ asset('vendor/js/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ asset('vendor/js/sidebarmenu.min.js') }}"></script>
   <script src="{{ asset('vendor/js/custom.min.js') }}"></script>
+  <script>
+    document.querySelectorAll('a[data-logout]').forEach(a => {
+      a.addEventListener('click', () => {
+        document.querySelector('#logout').submit()
+      })
+    })
+  </script>
 </body>
 
 </html>
