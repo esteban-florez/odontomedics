@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('address');
+            $table->string('ci')->unique();
             $table->string('phone')->unique();
             $table->date('birthdate');
             $table->enum('gender', Gender::values()->all());

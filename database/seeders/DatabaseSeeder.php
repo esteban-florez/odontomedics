@@ -18,6 +18,11 @@ class DatabaseSeeder extends Seeder
             TreatmentSeeder::class,
             ProductSeeder::class,
             SupplierSeeder::class,
+            PurchaseSeeder::class,
+            ProcedureSeeder::class,
+            AppointmentSeeder::class,
+            ItemSeeder::class,
+            BillSeeder::class,
         ]);
     }
 }

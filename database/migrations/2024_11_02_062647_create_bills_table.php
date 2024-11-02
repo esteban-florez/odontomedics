@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\Specialty;
+use App\Enums\Method;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctors', function (Blueprint $table) {
+        Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('surname');
-            $table->string('ci')->unique();
-            $table->enum('specialty', Specialty::values()->all());
+            $table->enum('method', Method::values()->all());
+            $table->foreignId('procedure_id');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctors');
+        Schema::dropIfExists('bills');
     }
 };
