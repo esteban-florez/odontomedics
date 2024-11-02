@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::withoutMiddleware('auth')->group(function () {
+    Route::get('/login', [LoginController::class, 'create'])
+        ->name('login');
+    
+    Route::post('/login', [LoginController::class, 'store'])
+        ->name('auth');
+    
+    Route::delete('/login', [LoginController::class, 'destroy'])
+        ->name('logout');
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+    Route::get('/register', [PatientController::class, 'create'])
+        ->name('register');
+});
 
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
+Route::view('/', 'home');
+
+
