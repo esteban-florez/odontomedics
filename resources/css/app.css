@@ -1,1 +1,8 @@
 @import url('utilities.css');
+
+.code-select {
+  padding-left: 0;
+  max-width: 7rem !important;
+  flex-grow: 0;
+  background-color: white;
+}

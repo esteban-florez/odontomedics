@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +27,20 @@ Route::withoutMiddleware('auth')->group(function () {
         ->name('logout');
 
     Route::get('/register', [PatientController::class, 'create'])
-        ->name('register');
+        ->name('register.create');
+
+    Route::post('/register', [PatientController::class, 'store'])
+        ->name('register.store');
+
+    Route::controller(OnboardController::class)->group(function () { 
+        Route::post('/onboard', 'store')
+            ->name('onboard.store');
+
+        Route::delete('/onboard', 'destroy')
+            ->name('onboard.destroy');
+    });
 });
 
-Route::view('/', 'home');
+Route::view('/', 'home')->name('home');
 
 

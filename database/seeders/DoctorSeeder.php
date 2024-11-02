@@ -17,12 +17,14 @@ class DoctorSeeder extends Seeder
             'name' => 'Ana',
             'surname' => 'Blanco',
             'specialty' => Specialty::Ortodoncia,
+            'ci' => '21482492'
         ]);
 
         Doctor::create([
             'name' => 'Mauricio',
             'surname' => 'Hernández',
             'specialty' => Specialty::Cirugia,
+            'ci' => '23239012'
         ]);
     }
 }

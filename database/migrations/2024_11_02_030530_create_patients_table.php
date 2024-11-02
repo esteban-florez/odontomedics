@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('ci')->unique();
             $table->string('phone')->unique();
-            $table->date('birthdate');
+            $table->date('birth');
             $table->enum('gender', Gender::values()->all());
             $table->string('insurance')->nullable();
             $table->text('history')->nullable();

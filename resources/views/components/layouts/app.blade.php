@@ -126,7 +126,7 @@
               <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="ms-2">
                   <span class="text-dark d-none d-md-inline-block">
-                    Jason Doe
+                    {{ auth()->user()?->patient?->fullname ?? 'Administrador' }}
                   </span>
                   <i class="d-inline-block d-md-none" data-feather="user" class="icon-sm"></i>
                   <i data-feather="chevron-down" class="icon-sm"></i>
@@ -405,13 +405,6 @@
   <script src="{{ asset('vendor/js/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ asset('vendor/js/sidebarmenu.min.js') }}"></script>
   <script src="{{ asset('vendor/js/custom.min.js') }}"></script>
-  <script>
-    document.querySelectorAll('a[data-logout]').forEach(a => {
-      a.addEventListener('click', () => {
-        document.querySelector('#logout').submit()
-      })
-    })
-  </script>
 </body>
 
 </html>

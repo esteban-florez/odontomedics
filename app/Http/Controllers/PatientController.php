@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Code;
+use App\Enums\Gender;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Patient;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
@@ -21,7 +25,11 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('register');
+        return view('register', [
+            'onboarding' => $this->isOnboardingRequest(),
+            'genders' => Gender::values(),
+            'codes' => Code::values(),
+        ]);
     }
 
     /**
@@ -29,7 +37,21 @@ class PatientController extends Controller
      */
     public function store(StorePatientRequest $request)
     {
-        //
+        $data = $request->safe()->except('code');
+        $credentials = session()->only(['email', 'password']);
+
+        $user = User::create($credentials);
+        $data['user_id'] = $user->id;
+
+        Patient::create($data);
+
+        session()->forget(['email', 'password']);
+
+        Auth::login($user);
+
+        session()->regenerate();
+
+        return to_route('home');
     }
 
     /**
@@ -62,5 +84,9 @@ class PatientController extends Controller
     public function destroy(Patient $patient)
     {
         //
+    }
+
+    private function isOnboardingRequest() {
+        return session()->has(['email', 'password']);
     }
 }
