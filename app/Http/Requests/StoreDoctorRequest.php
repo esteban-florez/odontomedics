@@ -2,18 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Specialty;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreDoctorRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +16,10 @@ class StoreDoctorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'min:3', 'max:20'],
+            'surname' => ['required', 'string', 'min:3', 'max:20'],
+            'ci' => ['required', 'numeric', 'digits_between:1,8', 'unique:doctors'],
+            'specialty' => ['required', Rule::enum(Specialty::class)],
         ];
     }
 }

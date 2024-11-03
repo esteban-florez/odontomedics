@@ -1,4 +1,4 @@
-<x-layouts.app title="Editar Paciente" :breadcrumbs="['Pacientes', $patient->fullname, route('patients.create') => 'Editar Paciente']">
+<x-layouts.app title="Editar Paciente" :breadcrumbs="['Pacientes', $patient->fullname, route('patients.edit') => 'Editar Paciente']">
 
 <x-patient-form :codes="$codes" :genders="$genders" type="edit" :patient="$patient" />
 

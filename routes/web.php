@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
@@ -45,4 +46,8 @@ Route::withoutMiddleware('auth')->middleware('guest')->group(function () {
 
 Route::view('/', 'home')->name('home');
 
-Route::resource('patients', PatientController::class);
+Route::resource('patients', PatientController::class)
+    ->except('show');
+
+Route::resource('doctors', DoctorController::class)
+    ->except('show');

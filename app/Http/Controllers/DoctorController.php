@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Specialty;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Doctor;
@@ -13,7 +14,9 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
+        return view('doctors.index', [
+            'doctors' => Doctor::latest()->get(),
+        ]);
     }
 
     /**
@@ -21,7 +24,9 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view('doctors.create', [
+            'specialties' => Specialty::selectable(),
+        ]);
     }
 
     /**
@@ -29,15 +34,10 @@ class DoctorController extends Controller
      */
     public function store(StoreDoctorRequest $request)
     {
-        //
-    }
+        Doctor::create($request->validated());
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Doctor $doctor)
-    {
-        //
+        return to_route('doctors.index')
+            ->with('alert', 'El docotor se ha registrado correctamente.');
     }
 
     /**
@@ -45,7 +45,10 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        //
+        return view('doctors.edit', [
+            'doctor' => $doctor,
+            'specialties' => Specialty::selectable(),
+        ]);
     }
 
     /**
@@ -53,14 +56,9 @@ class DoctorController extends Controller
      */
     public function update(UpdateDoctorRequest $request, Doctor $doctor)
     {
-        //
-    }
+        $doctor->update($request->validated());
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Doctor $doctor)
-    {
-        //
+        return to_route('doctors.index')
+            ->with('alert', 'El doctor se ha editado correctamente');
     }
 }

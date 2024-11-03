@@ -68,12 +68,4 @@ class PatientController extends Controller
         return to_route('patients.index')
             ->with('alert', 'El paciente se ha editado correctamente');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Patient $patient)
-    {
-        //
-    }
 }

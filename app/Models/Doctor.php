@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,5 +12,13 @@ class Doctor extends Model
 
     public function appointments() {
         return $this->hasMany(Appointment::class);
+    }
+
+    public function fullname(): Attribute {
+        return Attribute::make(get: fn() => "$this->name $this->surname");
+    }
+
+    public function cedula(): Attribute {
+        return Attribute::make(get: fn() => "V-$this->ci");
     }
 }
