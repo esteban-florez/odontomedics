@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Treatment extends Model
 {
     use HasFactory;
+
+    public function procedures() {
+        return $this->hasMany(Procedure::class);
+    }
 }

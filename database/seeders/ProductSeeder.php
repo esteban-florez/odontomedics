@@ -14,19 +14,19 @@ class ProductSeeder extends Seeder
     {
         Product::create([
             'name' => 'Guantes de Nitrilo',
-            'brand' => 'Riester',
+            'description' => 'Guantes de nitrilo para procedimientos dentales.',
             'price' => 0_24,
         ]);
 
         Product::create([
-            'name' => 'Amalgamas',
-            'brand' => 'G&K',
+            'name' => 'Amalgamas dentales',
+            'description' => 'Amalgamas dentales para tratamientos de caries.',
             'price' => 1_50,
         ]);
 
         Product::create([
             'name' => 'Mascarilla',
-            'brand' => 'Face Mask',
+            'description' => 'Mascarilla preventiva para uso médico.',
             'price' => 0_12,
         ]);
     }
