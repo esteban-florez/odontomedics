@@ -72,8 +72,13 @@
   </a>
   <ul aria-expanded="false" class="collapse first-level base-level-line">
     <li class="sidebar-item">
-      <a href="form-inputs.html" class="sidebar-link">
+      <a href="{{ route('products.index') }}" class="sidebar-link">
         <span class="hide-menu">Listado de Insumos</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a href="{{ route('products.create') }}" class="sidebar-link">
+        <span class="hide-menu">Registrar Insumo</span>
       </a>
     </li>
   </ul>

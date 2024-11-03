@@ -13,7 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('products.index', [
+            'products' => Product::latest()->get(),
+        ]);
     }
 
     /**
@@ -21,7 +23,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
@@ -29,15 +31,10 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
-    }
+        Product::create($request->validated());
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
+        return to_route('products.index')
+            ->with('alert', 'El insumo se ha registrado correctamente.');
     }
 
     /**
@@ -45,7 +42,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('products.edit', [
+            'product' => $product,
+        ]);
     }
 
     /**
@@ -53,14 +52,9 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
-    }
+        $product->update($request->validated());
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        return to_route('products.index')
+            ->with('alert', 'El insumo se ha editado correctamente.');
     }
 }

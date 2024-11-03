@@ -15,19 +15,19 @@ class ProductSeeder extends Seeder
         Product::create([
             'name' => 'Guantes de Nitrilo',
             'description' => 'Guantes de nitrilo para procedimientos dentales.',
-            'price' => 0_24,
+            'price' => 0.24,
         ]);
 
         Product::create([
             'name' => 'Amalgamas dentales',
             'description' => 'Amalgamas dentales para tratamientos de caries.',
-            'price' => 1_50,
+            'price' => 1.50,
         ]);
 
         Product::create([
             'name' => 'Mascarilla',
             'description' => 'Mascarilla preventiva para uso médico.',
-            'price' => 0_12,
+            'price' => 0.12,
         ]);
     }
 }
