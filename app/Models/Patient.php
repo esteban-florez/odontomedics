@@ -10,6 +10,8 @@ class Patient extends Model
 {
     use HasFactory;
 
+    protected $with = ['user'];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
@@ -19,18 +21,32 @@ class Patient extends Model
     }
 
     public function fullname(): Attribute {
-        return new Attribute(get: fn() => "$this->name $this->surname");
+        return Attribute::make(get: fn() => "$this->name $this->surname");
     }
 
     public function cedula(): Attribute {
-        return new Attribute(get: fn() => "V-$this->ci");
+        return Attribute::make(get: fn() => "V-$this->ci");
+    }
+
+    public function code(): Attribute {
+        return Attribute::make(get: fn() => $this->getCode());
+    }
+    
+    public function number(): Attribute {
+        return Attribute::make(get: fn() => $this->getNumber());
     }
 
     public function tel(): Attribute {
-        $str = str($this->phone);
-        $code = $str->substr(0, 4);
-        $phone = $str->substr(4);
+        $code = $this->getCode();
+        $number = $this->getNumber();
+        return Attribute::make(get: fn() => "$code-$number");
+    }
 
-        return new Attribute(get: fn() => "$code-$phone");
+    private function getCode() {
+        return str($this->phone)->substr(0, 4);
+    }
+
+    private function getNumber() {
+        return str($this->phone)->substr(4, 7);
     }
 }

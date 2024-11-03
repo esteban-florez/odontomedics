@@ -7,7 +7,7 @@
 @if ($label)
   <label class="form-label" for="{{ $name }}">Sexo</label>
 @endif
-<select class="form-select @error('phone')is-invalid @enderror" name="{{ $name }}" id="{{ $name }}">
+<select class="form-select @error($name)is-invalid @enderror" name="{{ $name }}" id="{{ $name }}">
   @if ($default)
     <option value="" @if (!old($name)) selected @endif>
       Seleccionar...
@@ -18,7 +18,7 @@
     $id = $option->id;
     $label = $option->label;
   @endphp
-    <option @if ($id === old($name)) selected @endif value="{{ $id }}">
+    <option @if ($id === $value ?? old($name)) selected @endif value="{{ $id }}">
       {{ $label }}
     </option>
   @endforeach

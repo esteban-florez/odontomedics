@@ -6,10 +6,16 @@ use App\Models\Patient;
 use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\DB;
 
 class UniquePhone implements ValidationRule, DataAwareRule
 {
     protected $data;
+
+    public function __construct(
+        protected $table,
+        protected $ignore,
+    ) {}
 
     /**
      * Run the validation rule.
@@ -18,9 +24,14 @@ class UniquePhone implements ValidationRule, DataAwareRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $phone = $this->data['code'] . $value;
+        $phone = "{$this->data['code']}{$value}";
 
-        if (Patient::where('phone', $phone)->exists()) {
+        $exists = DB::table($this->table)
+            ->where('phone', $phone)
+            ->whereNot('id', $this->ignore)
+            ->exists();
+
+        if ($exists) {
             $fail('Este número de teléfono ya fué registrado.');
         }
     }

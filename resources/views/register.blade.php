@@ -10,11 +10,6 @@
   <div class="row">
     @if (!$onboarding)
       <x-auth-fields />
-      <div class="col-lg-12">
-        <div class="form-group mb-3">
-          <x-input type="password" name="password_confirmation" label="Confirmar contraseña" placeholder="Vuelve a introducir tu contraseña..." />
-        </div>
-      </div>
     @else
       <div class="col-lg-12">
         <p>

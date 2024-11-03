@@ -25,8 +25,7 @@
           <td>{{ $patient->gender }}</td>
           <td>{{ $patient->tel }}</td>
           <td class="d-flex align-items-center gap-1">
-            <a href="#" class="btn btn-sm btn-primary">Detalles</a>
-            <a href="#" class="btn btn-sm btn-warning">Editar</a>
+            <a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-warning">Editar</a>
           </td>
         </tr>
       @endforeach

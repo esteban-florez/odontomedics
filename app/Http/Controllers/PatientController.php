@@ -45,19 +45,15 @@ class PatientController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Patient $patient)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Patient $patient)
     {
-        //
+        return view('patients.edit', [
+            'patient' => $patient,
+            'codes' => Code::values(),
+            'genders' => Gender::selectable(),
+        ]);
     }
 
     /**
@@ -65,7 +61,12 @@ class PatientController extends Controller
      */
     public function update(UpdatePatientRequest $request, Patient $patient)
     {
-        //
+        $data = $request->safe()->except('code');
+        $data['phone'] = $request->safe()->input('code') . $data['phone'];
+        $patient->update($data);
+
+        return to_route('patients.index')
+            ->with('alert', 'El paciente se ha editado correctamente');
     }
 
     /**

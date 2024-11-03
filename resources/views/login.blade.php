@@ -5,7 +5,7 @@
 <form action="{{ route('auth') }}" method="POST" class="mt-4">
   @csrf
   <div class="row">
-    <x-auth-fields />
+    <x-auth-fields :confirmation="false" />
     <div class="col-lg-12 text-center">
       <button type="submit" class="btn w-100 btn-dark">Iniciar Sesión</button>
     </div>

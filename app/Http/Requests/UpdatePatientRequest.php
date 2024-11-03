@@ -2,18 +2,14 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Code;
+use App\Enums\Gender;
+use App\Rules\UniquePhone;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePatientRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,8 +17,22 @@ class UpdatePatientRequest extends FormRequest
      */
     public function rules(): array
     {
+        $patient = $this->route('patient');
+
+        $uniqueCi = Rule::unique('patients')
+            ->ignore($patient->id);
+
+        $uniquePhone = new UniquePhone('patients', $patient->id);
+
         return [
-            //
+            'name' => ['required', 'string', 'min:3', 'max:20'],
+            'surname' => ['required', 'string', 'min:3', 'max:20'],
+            'address' => ['required', 'string', 'min:5', 'max:50'],
+            'ci' => ['required', 'numeric', 'digits_between:1,8', $uniqueCi],
+            'code' => ['required', Rule::enum(Code::class)],
+            'phone' => ['required', 'numeric', 'digits:7', $uniquePhone],
+            'birth' => ['required', 'date', 'before:today'],
+            'gender' => ['required', Rule::enum(Gender::class)],
         ];
     }
 }
