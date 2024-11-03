@@ -1,15 +1,15 @@
 @props(['label' => null, 'name', 'default' => true, 'options', 'value' => null])
 
 @php
-  $value = $value ?? old($name);
+  $value = $value ?? old($name) ?? '';
 @endphp
 
 @if ($label)
-  <label class="form-label" for="{{ $name }}">Sexo</label>
+  <label class="form-label" for="{{ $name }}">{{ $label }}</label>
 @endif
-<select class="form-select @error($name)is-invalid @enderror" name="{{ $name }}" id="{{ $name }}">
+<select {{ $attributes }} class="form-select @error($name)is-invalid @enderror" name="{{ $name }}" id="{{ $name }}">
   @if ($default)
-    <option value="" @if (!old($name)) selected @endif>
+    <option value="" @selected($value === '')>
       Seleccionar...
     </option>
   @endif
@@ -18,7 +18,7 @@
     $id = $option->id;
     $label = $option->label;
   @endphp
-    <option @if ($id === $value ?? old($name)) selected @endif value="{{ $id }}">
+    <option @selected($value === $id) value="{{ $id }}">
       {{ $label }}
     </option>
   @endforeach

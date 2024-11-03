@@ -251,6 +251,7 @@ return [
         'skills'                   => 'habilidades',
         'slug'                     => 'slug',
         'specialization'           => 'especialización',
+        'specialty'                => 'especialidad',
         'started_at'               => 'comenzado el',
         'state'                    => 'estado',
         'status'                   => 'estado',

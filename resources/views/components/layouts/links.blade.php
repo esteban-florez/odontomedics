@@ -54,7 +54,12 @@
   <ul aria-expanded="false" class="collapse first-level base-level-line">
     <li class="sidebar-item">
       <a href="form-inputs.html" class="sidebar-link">
-        <span class="hide-menu">Listado de Tratamientos</span>
+        <span class="hide-menu">Lista de Tratamientos</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a href="{{ route('treatments.index') }}" class="sidebar-link">
+        <span class="hide-menu">Tipos de Tratamientos</span>
       </a>
     </li>
   </ul>

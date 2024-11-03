@@ -14,20 +14,21 @@
     @method('PUT')
   @endif
   <div class="row">
+
     <div class="col-lg-6">
       <div class="form-group mb-3">
-        <x-input name="name" label="Nombre" placeholder="Introduce tu nombre..." :value="$doctor?->name" />
+        <x-input name="name" label="Nombre" placeholder="Introduce el nombre..." :value="$doctor?->name" />
       </div>
     </div>
     <div class="col-lg-6">
       <div class="form-group mb-3">
-        <x-input name="surname" label="Apellido" placeholder="Introduce tu apellido..." :value="$doctor?->surname" />
+        <x-input name="surname" label="Apellido" placeholder="Introduce el apellido..." :value="$doctor?->surname" />
       </div>
     </div>
     <div class="col-lg-6">
       <div class="form-group mb-3">
         <x-input name="ci" label="Cédula de identidad" type="number"
-          placeholder="Introduce tu número de cédula..." :value="$doctor?->ci" />
+          placeholder="Introduce el número de cédula..." :value="$doctor?->ci" />
       </div>
     </div>
     <div class="col-lg-6">

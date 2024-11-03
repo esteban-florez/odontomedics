@@ -21,17 +21,17 @@
       </div>
       <div class="col-lg-6">
         <div class="form-group mb-3">
-          <x-input name="name" label="Nombre" placeholder="Introduce tu nombre..." />
+          <x-input name="name" label="Nombre" placeholder="Introduce el nombre..." />
         </div>
       </div>
       <div class="col-lg-6">
         <div class="form-group mb-3">
-          <x-input name="surname" label="Apellido" placeholder="Introduce tu apellido..." />
+          <x-input name="surname" label="Apellido" placeholder="Introduce el apellido..." />
         </div>
       </div>
       <div class="col-lg-6">
         <div class="form-group mb-3">
-          <x-input name="ci" label="Cédula de identidad" type="number" placeholder="Introduce tu número de cédula..." />
+          <x-input name="ci" label="Cédula de identidad" type="number" placeholder="Introduce el número de cédula..." />
         </div>
       </div>
       <div class="col-lg-6">
@@ -43,13 +43,13 @@
                 <option @if($code === old('code'))selected @endif value="{{ $code }}">{{ $code }}</option>
               @endforeach
             </select>
-            <x-input type="number" name="phone" placeholder="Introduce tu teléfono..." />
+            <x-input type="number" name="phone" placeholder="Introduce el teléfono..." />
           </div>
         </div>
       </div>
       <div class="col-lg-6">
         <div class="form-group mb-3">
-          <x-input type="date" name="birth" label="Fecha de nacimiento" placeholder="Introduce tu fecha de nacimiento..." />
+          <x-input type="date" name="birth" label="Fecha de nacimiento" placeholder="Introduce el fecha de nacimiento..." />
         </div>
       </div>
       <div class="col-lg-6">
@@ -59,7 +59,7 @@
       </div>
       <div class="col-lg-12">
         <div class="form-group mb-3">
-          <x-textarea label="Dirección" name="address" rows="1" placeholder="Introduce tu dirección..." />
+          <x-textarea label="Dirección" name="address" rows="1" placeholder="Introduce la dirección..." />
         </div>
       </div>
     @endif

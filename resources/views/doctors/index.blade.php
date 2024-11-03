@@ -1,4 +1,4 @@
-<x-layouts.app title="Listado de Doctores" :breadcrumbs="['Doctores', route('doctors.create') => 'Listado de Doctores']">
+<x-layouts.app title="Listado de Doctores" :breadcrumbs="['Doctores', route('doctors.index') => 'Listado de Doctores']">
 
 <x-slot name="rightbar">
   <a href="{{ route('doctors.create') }}" class="btn btn-success">
