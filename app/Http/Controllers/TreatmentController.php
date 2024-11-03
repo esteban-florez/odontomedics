@@ -13,7 +13,9 @@ class TreatmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('treatments.index', [
+            'treatments' => Treatment::latest()->get(),
+        ]);
     }
 
     /**
@@ -21,7 +23,7 @@ class TreatmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('treatments.create');
     }
 
     /**
@@ -29,15 +31,10 @@ class TreatmentController extends Controller
      */
     public function store(StoreTreatmentRequest $request)
     {
-        //
-    }
+        Treatment::create($request->validated());
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Treatment $treatment)
-    {
-        //
+        return to_route('treatments.index')
+            ->with('alert', 'El tipo de tratamiento se ha registrado correctamente.');
     }
 
     /**
@@ -45,7 +42,9 @@ class TreatmentController extends Controller
      */
     public function edit(Treatment $treatment)
     {
-        //
+        return view('treatments.edit', [
+            'treatment' => $treatment,
+        ]);
     }
 
     /**
@@ -53,7 +52,10 @@ class TreatmentController extends Controller
      */
     public function update(UpdateTreatmentRequest $request, Treatment $treatment)
     {
-        //
+        $treatment->update($request->validated());
+
+        return to_route('treatments.index')
+            ->with('alert', 'El tipo de tratamiento se ha editado correctamente.');
     }
 
     /**

@@ -14,17 +14,17 @@ class TreatmentSeeder extends Seeder
     {
         Treatment::create([
             'name' => 'Limpieza',
-            'price' => 20_00,
+            'price' => 20.00,
         ]);
 
         Treatment::create([
             'name' => 'Endodoncia',
-            'price' => 40_00,
+            'price' => 40.00,
         ]);
 
         Treatment::create([
             'name' => 'Empastes',
-            'price' => 30_00,
+            'price' => 30.00,
         ]);
     }
 }

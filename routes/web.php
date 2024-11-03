@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TreatmentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,7 +48,10 @@ Route::withoutMiddleware('auth')->middleware('guest')->group(function () {
 Route::view('/', 'home')->name('home');
 
 Route::resource('patients', PatientController::class)
-    ->except('show');
+    ->except('show', 'delete');
 
 Route::resource('doctors', DoctorController::class)
-    ->except('show');
+    ->except('show', 'delete');
+
+Route::resource('treatments', TreatmentController::class)
+    ->except('show', 'delete');

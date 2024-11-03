@@ -19,18 +19,18 @@
     @endif
     <div class="col-lg-6">
       <div class="form-group mb-3">
-        <x-input name="name" label="Nombre" placeholder="Introduce tu nombre..." :value="$patient?->name" />
+        <x-input name="name" label="Nombre" placeholder="Introduce el nombre..." :value="$patient?->name" />
       </div>
     </div>
     <div class="col-lg-6">
       <div class="form-group mb-3">
-        <x-input name="surname" label="Apellido" placeholder="Introduce tu apellido..." :value="$patient?->surname" />
+        <x-input name="surname" label="Apellido" placeholder="Introduce el apellido..." :value="$patient?->surname" />
       </div>
     </div>
     <div class="col-lg-6">
       <div class="form-group mb-3">
         <x-input name="ci" label="Cédula de identidad" type="number"
-          placeholder="Introduce tu número de cédula..." :value="$patient?->ci" />
+          placeholder="Introduce el número de cédula..." :value="$patient?->ci" />
       </div>
     </div>
     <div class="col-lg-6">
@@ -43,14 +43,14 @@
                 {{ $code }}</option>
             @endforeach
           </select>
-          <x-input type="number" name="phone" placeholder="Introduce tu teléfono..." :value="$patient?->number" />
+          <x-input type="number" name="phone" placeholder="Introduce el teléfono..." :value="$patient?->number" />
         </div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="form-group mb-3">
         <x-input type="date" name="birth" label="Fecha de nacimiento"
-          placeholder="Introduce tu fecha de nacimiento..." :value="$patient?->birth" />
+          placeholder="Introduce el fecha de nacimiento..." :value="$patient?->birth" />
       </div>
     </div>
     <div class="col-lg-6">
@@ -60,7 +60,7 @@
     </div>
     <div class="col-lg-6">
       <div class="form-group mb-3">
-        <x-textarea label="Dirección" name="address" rows="1" placeholder="Introduce tu dirección..." :value="$patient?->address" />
+        <x-textarea label="Dirección" name="address" rows="1" placeholder="Introduce la dirección..." :value="$patient?->address" />
       </div>
     </div>
     <div class="col-lg-12 d-flex gap-2 mt-3">

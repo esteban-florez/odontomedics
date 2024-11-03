@@ -3,17 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTreatmentRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,8 +14,12 @@ class UpdateTreatmentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $treatment = $this->route('treatment');
+        $unique = Rule::unique('treatments')->ignore($treatment->id);
+
         return [
-            //
+            'name' => ['required', 'string', 'min:5', 'max:20', $unique],
+            'price' => ['required', 'numeric', 'between:1,10000']
         ];
     }
 }
