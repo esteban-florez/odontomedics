@@ -1,4 +1,4 @@
-<x-layouts.app title="Registrar Tipo de Tratamiento" :breadcrumbs="['Tratamientos', 'Tipos de Tratamientos', route('treatments.create') => 'Registrar Tipo de Tratamiento']">
+<x-layouts.app title="Registrar Servicio" :breadcrumbs="['Servicios', route('treatments.create') => 'Registrar Servicio']">
 
 <x-treatment-form type="create" />
 

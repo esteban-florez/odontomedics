@@ -34,7 +34,7 @@ class TreatmentController extends Controller
         Treatment::create($request->validated());
 
         return to_route('treatments.index')
-            ->with('alert', 'El tipo de tratamiento se ha registrado correctamente.');
+            ->with('alert', 'El tipo de servicio se ha registrado correctamente.');
     }
 
     /**
@@ -55,7 +55,7 @@ class TreatmentController extends Controller
         $treatment->update($request->validated());
 
         return to_route('treatments.index')
-            ->with('alert', 'El tipo de tratamiento se ha editado correctamente.');
+            ->with('alert', 'El tipo de servicio se ha editado correctamente.');
     }
 
     /**

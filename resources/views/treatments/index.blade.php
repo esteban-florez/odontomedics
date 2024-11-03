@@ -1,8 +1,8 @@
-<x-layouts.app title="Tipos de Tratamientos" :breadcrumbs="['Tratamientos', route('treatments.index') => 'Tipos de Tratamientos']">
+<x-layouts.app title="Listado de Servicios" :breadcrumbs="['Servicios', route('treatments.index') => 'Listado de Servicios']">
 
 <x-slot name="rightbar">
   <a href="{{ route('treatments.create') }}" class="btn btn-success">
-    Registrar tipo
+    Registrar servicio
   </a>
 </x-slot>
 

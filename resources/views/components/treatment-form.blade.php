@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="col-lg-12 d-flex gap-2 mt-3">
-      <button type="submit" class="btn btn-success">{{ $title }} tipo</button>
+      <button type="submit" class="btn btn-success">{{ $title }} servicio</button>
       <a href="{{ route('treatments.index') }}" class="btn btn-light">Volver al listado</a>
     </div>
   </div>
