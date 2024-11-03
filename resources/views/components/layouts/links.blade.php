@@ -15,8 +15,13 @@
   </a>
   <ul aria-expanded="false" class="collapse first-level base-level-line">
     <li class="sidebar-item">
-      <a href="form-inputs.html" class="sidebar-link">
+      <a href="{{ route('patients.index') }}" class="sidebar-link">
         <span class="hide-menu">Listado de Pacientes</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a href="{{ route('patients.create') }}" class="sidebar-link">
+        <span class="hide-menu">Registrar Paciente</span>
       </a>
     </li>
   </ul>

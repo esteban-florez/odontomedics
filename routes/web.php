@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,20 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::withoutMiddleware('auth')->group(function () {
+Route::withoutMiddleware('auth')->middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])
         ->name('login');
     
     Route::post('/login', [LoginController::class, 'store'])
         ->name('auth');
-    
+
     Route::delete('/login', [LoginController::class, 'destroy'])
+        ->withoutMiddleware('guest')
         ->name('logout');
 
-    Route::get('/register', [PatientController::class, 'create'])
+    Route::get('/register', [RegisterController::class, 'create'])
         ->name('register.create');
 
-    Route::post('/register', [PatientController::class, 'store'])
+    Route::post('/register', [RegisterController::class, 'store'])
         ->name('register.store');
 
     Route::controller(OnboardController::class)->group(function () { 
@@ -43,4 +45,4 @@ Route::withoutMiddleware('auth')->group(function () {
 
 Route::view('/', 'home')->name('home');
 
-
+Route::resource('patients', PatientController::class);

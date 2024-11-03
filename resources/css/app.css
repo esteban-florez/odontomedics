@@ -6,3 +6,7 @@
   flex-grow: 0;
   background-color: white;
 }
+
+td {
+  vertical-align: middle;
+}

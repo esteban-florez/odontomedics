@@ -1,4 +1,4 @@
-@props(['breadcrumbs' => [], 'title'])
+@props(['title', 'breadcrumbs' => [], 'rightbar' => '','container' => true])
 
 <!DOCTYPE html>
 <html dir="ltr" lang="es">
@@ -21,7 +21,8 @@
       <div class="lds-pos"></div>
     </div>
   </div>
-  <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+  <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
     <x-layouts.topbar />
     <x-layouts.sidebar />
     <div class="page-wrapper">
@@ -34,11 +35,41 @@
             <x-layouts.breadcrumbs :breadcrumbs="$breadcrumbs" />
           </div>
           <div>
-            {{ $rightbar ?? '' }}
+            {{ $rightbar }}
           </div>
         </div>
       </div>
-      {{ $slot }}
+      @if ($container)
+        <div class="container-fluid pt-2">
+          <div class="row">
+            <div class="col-12">
+              @session('alert')
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{ $value }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                  </button>
+                </div>
+              @endsession
+            </div>
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  {{ $slot }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      @else
+        @session('alert')
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ $value }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+          </div>
+        @endsession
+        {{ $slot }}
+      @endif
       <footer class="footer text-center text-muted">
         Todos los derechos reservados | Odontomedics (2024)
       </footer>

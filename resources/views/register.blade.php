@@ -48,10 +48,7 @@
                 <option @if($code === old('code'))selected @endif value="{{ $code }}">{{ $code }}</option>
               @endforeach
             </select>
-            <input class="form-control @error('phone')is-invalid @enderror" type="number" name="phone" id="phone" placeholder="Introduce tu teléfono..." value="{{ old('phone') }}"/>
-            @error('phone')
-              <p class="invalid-feedback">{{ $message }}</p>
-            @enderror
+            <x-input type="number" name="phone" placeholder="Introduce tu teléfono..." />
           </div>
         </div>
       </div>
@@ -62,25 +59,12 @@
       </div>
       <div class="col-lg-6">
         <div class="form-group mb-3">
-          <label class="form-label" for="gender">Sexo</label>
-          <select class="form-select @error('phone')is-invalid @enderror" name="gender" id="gender">
-            <option value="" @if(!old('gender'))selected @endif>Seleccionar...</option>
-            @foreach ($genders as $gender)
-              <option @if($gender === old('gender'))selected @endif value="{{ $gender }}">{{ $gender }}</option>
-            @endforeach
-          </select>
-          @error('gender')
-            <p class="invalid-feedback">{{ $message }}</p>
-          @enderror
+          <x-select label="Sexo" name="gender" :options="$genders" />
         </div>
       </div>
       <div class="col-lg-12">
         <div class="form-group mb-3">
-          <label class="form-label" for="address">Dirección</label>
-          <textarea class="form-control @error('phone')is-invalid @enderror" name="address" id="address" rows="2" placeholder="Introduce tu dirección..." >{{ old('address') }}</textarea>
-          @error('address')
-            <p class="invalid-feedback">{{ $message }}</p>
-          @enderror
+          <x-textarea label="Dirección" name="address" rows="1" placeholder="Introduce tu dirección..." />
         </div>
       </div>
     @endif

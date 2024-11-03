@@ -7,9 +7,8 @@ use App\Enums\Gender;
 use App\Rules\UniquePhone;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
-class StorePatientRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -19,8 +18,6 @@ class StorePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
             'name' => ['required', 'string', 'min:3', 'max:20'],
             'surname' => ['required', 'string', 'min:3', 'max:20'],
             'address' => ['required', 'string', 'min:5', 'max:50'],

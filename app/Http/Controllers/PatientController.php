@@ -7,8 +7,7 @@ use App\Enums\Gender;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Patient;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Services\PatientService;
 
 class PatientController extends Controller
 {
@@ -17,7 +16,9 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        return view('patients.index', [
+            'patients' => Patient::latest()->get(),
+        ]);
     }
 
     /**
@@ -25,9 +26,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('register', [
-            'onboarding' => $this->isOnboardingRequest(),
-            'genders' => Gender::values(),
+        return view('patients.create', [
+            'genders' => Gender::selectable(),
             'codes' => Code::values(),
         ]);
     }
@@ -37,21 +37,11 @@ class PatientController extends Controller
      */
     public function store(StorePatientRequest $request)
     {
-        $data = $request->safe()->except('code');
-        $credentials = session()->only(['email', 'password']);
+        $credentials = $request->safe()->only(['email', 'password']);
+        PatientService::create($request, $credentials);
 
-        $user = User::create($credentials);
-        $data['user_id'] = $user->id;
-
-        Patient::create($data);
-
-        session()->forget(['email', 'password']);
-
-        Auth::login($user);
-
-        session()->regenerate();
-
-        return to_route('home');
+        return to_route('patients.index')
+            ->with('alert', 'El paciente se ha registrado correctamente.');
     }
 
     /**
@@ -84,9 +74,5 @@ class PatientController extends Controller
     public function destroy(Patient $patient)
     {
         //
-    }
-
-    private function isOnboardingRequest() {
-        return session()->has(['email', 'password']);
     }
 }

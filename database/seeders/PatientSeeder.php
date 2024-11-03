@@ -29,7 +29,7 @@ class PatientSeeder extends Seeder
             'name' => 'María',
             'surname' => 'López',
             'address' => 'Calle 39, Casa 24, La Victoria, Aragua',
-            'phone' => '041287654321',
+            'phone' => '04128765432',
             'ci' => '25140128',
             'birth' => now()->subYears(24),
             'gender' => Gender::Female,
