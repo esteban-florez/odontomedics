@@ -6,6 +6,7 @@ use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TreatmentController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,9 @@ Route::resource('treatments', TreatmentController::class)
     ->except('show', 'delete');
 
 Route::resource('products', ProductController::class)
+    ->except('show', 'delete');
+
+Route::resource('suppliers', SupplierController::class)
     ->except('show', 'delete');
 
 

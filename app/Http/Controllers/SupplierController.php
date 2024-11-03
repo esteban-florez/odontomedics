@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Code;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
 use App\Models\Supplier;
@@ -13,7 +14,9 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        return view('suppliers.index', [
+            'suppliers' => Supplier::latest()->get(),
+        ]);
     }
 
     /**
@@ -21,7 +24,9 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.create', [
+            'codes' => Code::values(),
+        ]);
     }
 
     /**
@@ -29,15 +34,14 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-        //
-    }
+        $data = $request->safe()->except(['code']);
+        $code = $request->safe()->input('code');
+        $data['phone'] = $code . $data['phone'];
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Supplier $supplier)
-    {
-        //
+        Supplier::create($data);
+
+        return to_route('suppliers.index')
+            ->with('alert', 'El proveedor ha sido registrado correctamente.');
     }
 
     /**
@@ -45,7 +49,10 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view('suppliers.edit', [
+            'supplier' => $supplier,
+            'codes' => Code::values(),
+        ]);
     }
 
     /**
@@ -53,14 +60,11 @@ class SupplierController extends Controller
      */
     public function update(UpdateSupplierRequest $request, Supplier $supplier)
     {
-        //
-    }
+        $data = $request->safe()->except('code');
+        $data['phone'] = $request->safe()->input('code') . $data['phone'];
+        $supplier->update($data);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Supplier $supplier)
-    {
-        //
+        return to_route('suppliers.index')
+            ->with('alert', 'El proveedor ha sido editado correctamente');
     }
 }

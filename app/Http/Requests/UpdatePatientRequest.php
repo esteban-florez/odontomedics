@@ -19,7 +19,7 @@ class UpdatePatientRequest extends FormRequest
     {
         $patient = $this->route('patient');
 
-        $uniqueCi = Rule::unique('patients')
+        $unique = Rule::unique('patients')
             ->ignore($patient->id);
 
         $uniquePhone = new UniquePhone('patients', $patient->id);
@@ -28,7 +28,7 @@ class UpdatePatientRequest extends FormRequest
             'name' => ['required', 'string', 'min:3', 'max:20'],
             'surname' => ['required', 'string', 'min:3', 'max:20'],
             'address' => ['required', 'string', 'min:5', 'max:50'],
-            'ci' => ['required', 'numeric', 'digits_between:1,8', $uniqueCi],
+            'ci' => ['required', 'numeric', 'digits_between:1,8', $unique],
             'code' => ['required', Rule::enum(Code::class)],
             'phone' => ['required', 'numeric', 'digits:7', $uniquePhone],
             'birth' => ['required', 'date', 'before:today'],
