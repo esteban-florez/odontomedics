@@ -10,6 +10,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon.png') }}">
   <title>Odontomedics - Clínica Odontológica</title>
   <link href="{{ asset('vendor/css/styles.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   @stack('css')
   @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
@@ -40,17 +41,17 @@
         </div>
       </div>
       @if ($container)
-        <div class="container-fluid pt-2">
+        <div class="container-fluid">
           <div class="row">
-            <div class="col-12">
-              @session('alert')
+            @session('alert')
+              <div class="col-12">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                   {{ $value }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                   </button>
                 </div>
+              </div>
               @endsession
-            </div>
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
@@ -85,6 +86,7 @@
   <script src="{{ asset('vendor/js/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ asset('vendor/js/sidebarmenu.min.js') }}"></script>
   <script src="{{ asset('vendor/js/custom.min.js') }}"></script>
+  <script src="{{ asset('js/logout.js') }}"></script>
   @stack('js')
 </body>
 

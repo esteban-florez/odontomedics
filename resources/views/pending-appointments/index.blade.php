@@ -46,4 +46,8 @@
   </form>
 </x-modal>
 
+@push('js')
+  <script src="{{ asset('js/pending-appointments.js') }}"></script>
+@endpush
+
 </x-layouts.app>

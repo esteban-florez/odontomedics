@@ -75,4 +75,8 @@
   @csrf @method('DELETE')
 </form>
 
+@push('js')
+  <script src="{{ asset('js/register.js') }}"></script>
+@endpush
+
 </x-layouts.auth>
