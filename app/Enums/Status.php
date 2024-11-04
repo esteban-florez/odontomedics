@@ -9,5 +9,6 @@ enum Status: string
     case Pending = 'En Espera';
     case Canceled = 'Cancelada';
     case Approved = 'Aprobada';
+    case Unfilled = 'Por Completar';
     case Completed = 'Completada';
 }

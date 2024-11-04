@@ -56,7 +56,8 @@ class Appointment extends Model
                 $this->canceled || ($outdated && !$assigned) => Status::Canceled,
                 !$outdated && !$assigned => Status::Pending,
                 !$outdated && $assigned => Status::Approved,
-                $outdated && $assigned => Status::Completed,
+                !$this->completed && $outdated && $assigned => Status::Unfilled,
+                $this->completed && $outdated && $assigned => Status::Completed,
             };
 
             return $status;

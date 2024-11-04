@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($treatments as $treatment)
+      @forelse ($treatments as $treatment)
         <tr>
           <td>{{ $treatment->name }}</td>
           <td>{{ $treatment->fprice }}</td>
@@ -24,7 +24,11 @@
             <a href="{{ route('treatments.edit', $treatment) }}" class="btn btn-sm btn-warning">Editar</a>
           </td>
         </tr>
-      @endforeach
+      @empty
+        <tr>
+          <td class="text-center" colspan="3">No existen registros.</td>
+        </tr>
+      @endforelse
     </tbody>
   </table>
 </div>

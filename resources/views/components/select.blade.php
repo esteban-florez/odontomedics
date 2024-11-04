@@ -16,10 +16,9 @@
   @foreach ($options as $option)
   @php
     $id = $option->id;
-    $label = $option->label;
   @endphp
     <option @selected($value === $id) value="{{ $id }}">
-      {{ $label }}
+      {{ $option->label }}
     </option>
   @endforeach
 </select>

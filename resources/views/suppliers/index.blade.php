@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($suppliers as $supplier)
+      @forelse ($suppliers as $supplier)
         <tr>
           <td>{{ $supplier->name }}</td>
           <td>{{ $supplier->email }}</td>
@@ -26,7 +26,11 @@
             <a href="{{ route('suppliers.edit', $supplier) }}" class="btn btn-sm btn-warning">Editar</a>
           </td>
         </tr>
-      @endforeach
+      @empty
+        <tr>
+          <td class="text-center" colspan="4">No existen registros.</td>
+        </tr>
+      @endforelse
     </tbody>
   </table>
 </div>

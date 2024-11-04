@@ -6,65 +6,6 @@
 </li>
 
 <li class="list-divider"></li>
-<li class="nav-small-cap"><span class="hide-menu">Gestión</span></li>
-
-<li class="sidebar-item">
-  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-    <i data-feather="calendar" class="feather-icon"></i>
-    <span class="hide-menu pt-1">Citas</span>
-  </a>
-  <ul aria-expanded="false" class="collapse first-level base-level-line">
-    <li class="sidebar-item">
-      <a href="form-inputs.html" class="sidebar-link">
-        <span class="hide-menu">Listado de Citas</span>
-      </a>
-    </li>
-  </ul>
-</li>
-
-<li class="sidebar-item">
-  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-    <i data-feather="thermometer" class="feather-icon"></i>
-    <span class="hide-menu pt-1">Tratamientos</span>
-  </a>
-  <ul aria-expanded="false" class="collapse first-level base-level-line">
-    <li class="sidebar-item">
-      <a href="form-inputs.html" class="sidebar-link">
-        <span class="hide-menu">Lista de Tratamientos</span>
-      </a>
-    </li>
-  </ul>
-</li>
-
-<li class="sidebar-item">
-  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-    <i data-feather="file-text" class="feather-icon"></i>
-    <span class="hide-menu pt-1">Facturación</span>
-  </a>
-  <ul aria-expanded="false" class="collapse first-level base-level-line">
-    <li class="sidebar-item">
-      <a href="form-inputs.html" class="sidebar-link">
-        <span class="hide-menu">Historial de Facturas</span>
-      </a>
-    </li>
-  </ul>
-</li>
-
-<li class="sidebar-item">
-  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-    <i data-feather="clipboard" class="feather-icon"></i>
-    <span class="hide-menu pt-1">Inventario</span>
-  </a>
-  <ul aria-expanded="false" class="collapse first-level base-level-line">
-    <li class="sidebar-item">
-      <a href="form-inputs.html" class="sidebar-link">
-        <span class="hide-menu">Historial de Inventario</span>
-      </a>
-    </li>
-  </ul>
-</li>
-
-<li class="list-divider"></li>
 <li class="nav-small-cap"><span class="hide-menu">Registros</span></li>
 
 <li class="sidebar-item">
@@ -162,3 +103,66 @@
   </ul>
 </li>
 
+<li class="list-divider"></li>
+<li class="nav-small-cap"><span class="hide-menu">Gestión</span></li>
+
+<li class="sidebar-item">
+  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+    <i data-feather="calendar" class="feather-icon"></i>
+    <span class="hide-menu pt-1">Citas</span>
+  </a>
+  <ul aria-expanded="false" class="collapse first-level base-level-line">
+    <li class="sidebar-item">
+      <a href="{{ route('appointments.index') }}" class="sidebar-link">
+        <span class="hide-menu">Listado de citas</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a href="{{ route('pending-appointments.index') }}" class="sidebar-link">
+        <span class="hide-menu">Citas por asignar</span>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li class="sidebar-item">
+  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+    <i data-feather="thermometer" class="feather-icon"></i>
+    <span class="hide-menu pt-1">Tratamientos</span>
+  </a>
+  <ul aria-expanded="false" class="collapse first-level base-level-line">
+    <li class="sidebar-item">
+      <a href="form-inputs.html" class="sidebar-link">
+        <span class="hide-menu">Lista de Tratamientos</span>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li class="sidebar-item">
+  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+    <i data-feather="file-text" class="feather-icon"></i>
+    <span class="hide-menu pt-1">Facturación</span>
+  </a>
+  <ul aria-expanded="false" class="collapse first-level base-level-line">
+    <li class="sidebar-item">
+      <a href="form-inputs.html" class="sidebar-link">
+        <span class="hide-menu">Historial de Facturas</span>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li class="sidebar-item">
+  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+    <i data-feather="clipboard" class="feather-icon"></i>
+    <span class="hide-menu pt-1">Inventario</span>
+  </a>
+  <ul aria-expanded="false" class="collapse first-level base-level-line">
+    <li class="sidebar-item">
+      <a href="form-inputs.html" class="sidebar-link">
+        <span class="hide-menu">Historial de Inventario</span>
+      </a>
+    </li>
+  </ul>
+</li>

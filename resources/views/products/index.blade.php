@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($products as $product)
+      @forelse ($products as $product)
         <tr>
           <td>{{ $product->name }}</td>
           <td>{{ $product->description }}</td>
@@ -26,7 +26,11 @@
             <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning">Editar</a>
           </td>
         </tr>
-      @endforeach
+      @empty
+        <tr>
+          <td class="text-center" colspan="4">No existen registros.</td>
+        </tr>
+      @endforelse
     </tbody>
   </table>
 </div>

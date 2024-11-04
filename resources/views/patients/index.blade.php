@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($patients as $patient)
+      @forelse ($patients as $patient)
         <tr>
           <td>{{ $patient->fullname }}</td>
           <td>{{ $patient->cedula }}</td>
@@ -28,7 +28,11 @@
             <a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-warning">Editar</a>
           </td>
         </tr>
-      @endforeach
+      @empty
+        <tr>
+          <td class="text-center" colspan="5">No existen registros.</td>
+        </tr>
+      @endforelse
     </tbody>
   </table>
 </div>

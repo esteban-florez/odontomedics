@@ -5,6 +5,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PendingAppointmentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SupplierController;
@@ -66,4 +67,12 @@ Route::resource('suppliers', SupplierController::class)
     ->except('show', 'delete');
 
 Route::resource('appointments', AppointmentController::class)
-    ->except('show', 'edit', 'update');
+    ->except('show');
+
+Route::controller(PendingAppointmentController::class)->group(function () {
+    Route::get('appointments/pending', 'index')
+        ->name('pending-appointments.index');
+    
+    Route::patch('appointments/pending/{appointment}', 'update')
+        ->name('pending-appointments.update');
+});
