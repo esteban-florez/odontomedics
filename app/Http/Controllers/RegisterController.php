@@ -16,7 +16,7 @@ class RegisterController extends Controller
     {
         return view('register', [
             'onboarding' => $this->isOnboardingRequest(),
-            'genders' => Gender::values(),
+            'genders' => Gender::selectable(),
             'codes' => Code::values(),
         ]);
     }

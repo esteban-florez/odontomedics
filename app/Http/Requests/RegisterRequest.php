@@ -23,7 +23,7 @@ class RegisterRequest extends FormRequest
             'address' => ['required', 'string', 'min:5', 'max:50'],
             'ci' => ['required', 'numeric', 'digits_between:1,8', 'unique:patients'],
             'code' => ['required', Rule::enum(Code::class)],
-            'phone' => ['required', 'numeric', 'digits:7', new UniquePhone],
+            'phone' => ['required', 'numeric', 'digits:7', new UniquePhone('patients', null)],
             'birth' => ['required', 'date', 'before:today'],
             'gender' => ['required', Rule::enum(Gender::class)],
         ];
