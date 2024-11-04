@@ -10,6 +10,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon.png') }}">
   <title>Odontomedics - Clínica Odontológica</title>
   <link href="{{ asset('vendor/css/styles.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   @stack('css')
   @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
