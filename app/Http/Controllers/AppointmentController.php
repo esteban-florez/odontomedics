@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -13,7 +15,19 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        $with = ['patient', 'doctor', 'procedure', 'procedure.treatment'];
+
+        $appointments = Appointment::with($with)
+            ->when(!$user->is_admin, fn(Builder $query) 
+                => $query->where('patient_id', $user->patient->id))
+            ->latest()
+            ->get();
+
+        return view('appointments.index', [
+            'appointments' => $appointments,
+        ]);
     }
 
     /**
@@ -21,7 +35,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('appointments.create');
     }
 
     /**
@@ -29,7 +43,14 @@ class AppointmentController extends Controller
      */
     public function store(StoreAppointmentRequest $request)
     {
-        //
+        $data = $request->safe()->merge([
+            'patient_id' => Auth::user()->patient->id,
+        ])->all();
+
+        Appointment::create($data);
+
+        return to_route('appointments.index')
+            ->with('alert', 'Has agendado tu cita correctamente.');
     }
 
     /**
@@ -61,6 +82,11 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        //
+        $appointment->update([
+            'canceled' => true,
+        ]);
+
+        return to_route('appointments.index')
+            ->with('alert', 'Has cancelado tu cita correctamente.');
     }
 }

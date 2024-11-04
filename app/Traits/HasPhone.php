@@ -7,25 +7,15 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 trait HasPhone
 {
     public function code(): Attribute {
-        return Attribute::make(get: fn() => $this->getCode());
+        return Attribute::make(fn() => str($this->phone)->substr(0, 4));
     }
     
     public function number(): Attribute {
-        return Attribute::make(get: fn() => $this->getNumber());
+        return Attribute::make(fn() => str($this->phone)->substr(4, 7));
     }
 
     public function tel(): Attribute {
-        $code = $this->getCode();
-        $number = $this->getNumber();
-        return Attribute::make(get: fn() => "$code-$number");
-    }
-
-    private function getCode() {
-        return str($this->phone)->substr(0, 4);
-    }
-
-    private function getNumber() {
-        return str($this->phone)->substr(4, 7);
+        return Attribute::make(fn() => "$this->code-$this->number");
     }
 }
 

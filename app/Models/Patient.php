@@ -22,10 +22,10 @@ class Patient extends Model
     }
 
     public function fullname(): Attribute {
-        return Attribute::make(get: fn() => "$this->name $this->surname");
+        return Attribute::make(fn() => "$this->name $this->surname");
     }
 
     public function cedula(): Attribute {
-        return Attribute::make(get: fn() => "V-$this->ci");
+        return Attribute::make(fn() => "V-$this->ci");
     }
 }

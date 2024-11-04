@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->enum('method', Method::values()->all());
+            $table->unsignedInteger('total');
             $table->foreignId('procedure_id');
             $table->timestamps();
         });

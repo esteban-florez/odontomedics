@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('procedures', function (Blueprint $table) {
             $table->id();
             $table->string('description');
+            $table->timestamp('finished_at')->nullable();
             $table->foreignId('patient_id');
             $table->foreignId('treatment_id');
             $table->timestamps();

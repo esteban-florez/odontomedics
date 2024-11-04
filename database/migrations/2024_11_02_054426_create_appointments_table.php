@@ -16,9 +16,10 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->time('time');
+            $table->boolean('canceled')->default(false);
             $table->enum('diagnosis', Diagnosis::values()->all())->nullable();
             $table->foreignId('patient_id');
-            $table->foreignId('doctor_id');
+            $table->foreignId('doctor_id')->nullable();
             $table->foreignId('procedure_id')->nullable();
             $table->timestamps();
         });

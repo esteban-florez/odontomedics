@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OnboardController;
@@ -64,4 +65,5 @@ Route::resource('products', ProductController::class)
 Route::resource('suppliers', SupplierController::class)
     ->except('show', 'delete');
 
-
+Route::resource('appointments', AppointmentController::class)
+    ->except('show', 'edit', 'update');

@@ -16,6 +16,7 @@ class BillSeeder extends Seeder
     {
         Bill::create([
             'procedure_id' => Procedure::first()->id,
+            'total' => 190, // numero arbitrario
             'method' => Method::PagoMovil,
         ]);
     }

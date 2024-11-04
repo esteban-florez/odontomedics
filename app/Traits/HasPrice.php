@@ -10,17 +10,16 @@ trait HasPrice
     public function price(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value / 100,
-            set: fn($value) => $value * 100,
+            fn($value) => $value / 100,
+            fn($value) => $value * 100,
         );
     }
 
     public function fprice(): Attribute
     {
-        $price = Number::format($this->price, precision: 2, locale: 'es');
-
-        return Attribute::make(
-            get: fn() => "\${$price}",
-        );
+        return Attribute::make(function () {
+            $number = Number::format($this->price, precision: 2, locale: 'es');
+            return "\${$number}";
+        });
     }
 }
