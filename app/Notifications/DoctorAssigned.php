@@ -6,7 +6,7 @@ use App\Models\Appointment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class AppointmentScheduled extends Notification
+class DoctorAssigned extends Notification
 {
     use Queueable;
 
@@ -41,10 +41,10 @@ class AppointmentScheduled extends Notification
 
         return [
             'icon' => 'calendar',
-            'title' => 'Nueva cita agendada',
-            'text' => "{$appointment->patient->fullname} ha agendado una cita.",
-            'time' => $appointment->created_at,
-            'href' => route('pending-appointments.index'),
+            'title' => 'Tu cita ha sido asignada',
+            'text' => "Dr(a). {$appointment->doctor->fullname} ha sido asignado a tu cita.",
+            'time' => $appointment->updated_at,
+            'href' => route('appointments.index'),
         ];
     }
 
@@ -55,6 +55,6 @@ class AppointmentScheduled extends Notification
      */
     public function databaseType(): string
     {
-        return 'appointment-scheduled';
+        return 'doctor-assigned';
     }
 }

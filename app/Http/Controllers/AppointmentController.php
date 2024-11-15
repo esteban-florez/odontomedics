@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
+use App\Models\User;
+use App\Notifications\AppointmentScheduled;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class AppointmentController extends Controller
 {
@@ -47,7 +50,11 @@ class AppointmentController extends Controller
             'patient_id' => Auth::user()->patient->id,
         ])->all();
 
-        Appointment::create($data);
+        $appointment = Appointment::create($data);
+
+        $admin = User::where('is_admin', true)->first();
+
+        Notification::send($admin, new AppointmentScheduled($appointment));
 
         return to_route('appointments.index')
             ->with('alert', 'Has agendado tu cita correctamente.');
