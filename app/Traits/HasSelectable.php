@@ -2,14 +2,16 @@
 
 namespace App\Traits;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use stdClass;
 
 trait HasSelectable
 {
-    public static function selectable()
+    public static function selectable(Builder $builder = null)
     {
-        return static::latest()
-            ->get()
+        $query = $builder ?? static::latest();
+
+        return $query->get()
             ->map(fn($item) => static::toOption($item));
     }
 

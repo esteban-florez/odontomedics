@@ -1,4 +1,4 @@
-@props(['label' => null, 'name', 'default' => true, 'options', 'value' => null])
+@props(['label' => null, 'name', 'default' => true, 'options' => [], 'value' => null])
 
 @php
   $value = $value ?? old($name) ?? '';
@@ -13,6 +13,7 @@
       Seleccionar...
     </option>
   @endif
+  {{ $slot }}
   @foreach ($options as $option)
   @php
     $id = $option->id;

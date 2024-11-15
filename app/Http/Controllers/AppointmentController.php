@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Diagnosis;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
 use App\Models\User;
+use App\Models\Procedure;
+use App\Models\Product;
+use App\Models\Treatment;
 use App\Notifications\AppointmentScheduled;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -73,7 +77,24 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        //
+        $query = Product::with('purchases')
+            ->withSum('purchases as stock', 'amount')
+            ->having('stock', '>', 0);
+
+        $products = Product::selectable($query);
+
+        $appointment->load('patient', 'doctor', 'procedure', 'procedure.items', 'procedure.items.products');
+
+        return view('appointments.edit', [
+            'products' => $products,
+            'appointment' => $appointment,
+            'diagnoses' => Diagnosis::selectable(),
+            'treatments' => Treatment::selectable(),
+            'procedures' => Procedure::where('patient_id', $appointment->patient->id)
+                ->whereNull('finished_at')
+                ->latest()
+                ->get(),
+        ]);
     }
 
     /**
