@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PendingAppointmentController;
@@ -10,6 +11,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TreatmentController;
+use App\Models\Appointment;
+use App\Models\User;
+use App\Notifications\AppointmentScheduled;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,3 +81,6 @@ Route::controller(PendingAppointmentController::class)->group(function () {
     Route::patch('appointments/pending/{appointment}', 'update')
         ->name('pending-appointments.update');
 });
+
+Route::post('/notifications', NotificationController::class)
+    ->name('notifications');

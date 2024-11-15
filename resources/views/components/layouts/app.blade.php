@@ -12,7 +12,7 @@
   <link href="{{ asset('vendor/css/styles.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   @stack('css')
-  @vite(['resources/js/app.js', 'resources/css/app.css'])
+  @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -86,7 +86,7 @@
   <script src="{{ asset('vendor/js/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ asset('vendor/js/sidebarmenu.min.js') }}"></script>
   <script src="{{ asset('vendor/js/custom.min.js') }}"></script>
-  <script src="{{ asset('js/logout.js') }}"></script>
+  <script src="{{ asset('js/layout.js') }}"></script>
   @stack('js')
 </body>
 

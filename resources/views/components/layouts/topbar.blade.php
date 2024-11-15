@@ -34,71 +34,7 @@
         </li>
       </ul>
       <ul class="navbar-nav float-end">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle pl-lg-3 position-relative" href="javascript:void(0)" id="bell" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span><i data-feather="bell" class="icon-sm"></i></span>
-            <span class="badge text-bg-primary notify-no rounded-circle">5</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-end mailbox animated bounceInDown">
-            <ul class="list-style-none">
-              <li>
-                <div class="message-center notifications position-relative">
-                  <a href="javascript:void(0)"
-                    class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                    <div class="btn btn-danger rounded-circle btn-circle"><i data-feather="airplay"
-                        class="text-white"></i></div>
-                    <div class="w-75 d-inline-block v-middle ps-2">
-                      <h6 class="message-title mb-0 mt-1">Luanch Admin</h6>
-                      <span class="font-12 text-nowrap d-block text-muted">Just see
-                        the my new
-                        admin!</span>
-                      <span class="font-12 text-nowrap d-block text-muted">9:30 AM</span>
-                    </div>
-                  </a>
-                  <a href="javascript:void(0)"
-                    class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                    <span class="btn btn-success text-white rounded-circle btn-circle"><i data-feather="calendar"
-                        class="text-white"></i></span>
-                    <div class="w-75 d-inline-block v-middle ps-2">
-                      <h6 class="message-title mb-0 mt-1">Event today</h6>
-                      <span class="font-12 text-nowrap d-block text-muted text-truncate">Just
-                        a reminder that you have event</span>
-                      <span class="font-12 text-nowrap d-block text-muted">9:10 AM</span>
-                    </div>
-                  </a>
-                  <a href="javascript:void(0)"
-                    class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                    <span class="btn btn-info rounded-circle btn-circle"><i data-feather="settings"
-                        class="text-white"></i></span>
-                    <div class="w-75 d-inline-block v-middle ps-2">
-                      <h6 class="message-title mb-0 mt-1">Settings</h6>
-                      <span class="font-12 text-nowrap d-block text-muted text-truncate">You
-                        can customize this template
-                        as you want</span>
-                      <span class="font-12 text-nowrap d-block text-muted">9:08 AM</span>
-                    </div>
-                  </a>
-                  <a href="javascript:void(0)"
-                    class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                    <span class="btn btn-primary rounded-circle btn-circle"><i data-feather="box"
-                        class="text-white"></i></span>
-                    <div class="w-75 d-inline-block v-middle ps-2">
-                      <h6 class="message-title mb-0 mt-1">Pavan kumar</h6> <span
-                        class="font-12 text-nowrap d-block text-muted">Just
-                        see the my admin!</span>
-                      <span class="font-12 text-nowrap d-block text-muted">9:02 AM</span>
-                    </div>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
-                  <strong>Check all notifications</strong>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
+        <x-layouts.notifications />
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle pl-lg-3 position-relative" href="javascript:void(0)" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="ms-2">
@@ -113,7 +49,7 @@
             <a class="dropdown-item mt-2" href="javascript:void(0)"><i data-feather="user" class="icon-sm me-2 ms-1"></i>
               Mi Perfil</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="javascript:void(0)" data-logout>
+            <a class="dropdown-item" href="javascript:void(0)" data-form="logout">
               <i data-feather="power" class="icon-sm me-2 ms-1"></i>
               Cerrar Sesión
             </a>

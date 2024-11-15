@@ -11,7 +11,7 @@
   <title>Odontomedics - Clínica Odontológica</title>
   <link href="{{ asset('vendor/css/styles.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-  @vite(['resources/js/auth.js', 'resources/css/app.css'])
+  @vite(['resources/js/auth.js'])
 </head>
 
 <body>
