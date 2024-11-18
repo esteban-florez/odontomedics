@@ -1,15 +1,21 @@
-@props(['label' => null, 'name', 'placeholder', 'type' => 'text', 'value' => null])
+@props(['label' => null])
 
 @php
-  $value = $value ?? old($name) ?? '';
+  $name = $attributes->get('name');
+  $id = $attributes->has('id') ? $attributes->get('id') : $name;
+  $error = $errors->get($name);
+
+  $attributes = $attributes
+    ->class(['form-control', 'is-invalid' => $error])
+    ->merge(['id' => $name]);
 @endphp
 
 @if ($label)
-<label class="form-label" for="{{ $name }}">
+<label class="form-label" for="{{ $id }}">
   {{ $label }}
 </label>
 @endif
-<input {{ $attributes }} @class(['form-control', 'is-invalid' => $errors->get($name) ]) id="{{ $name }}" name="{{ $name }}" type="{{ $type }}" placeholder="{{ $placeholder }}" value="{{ $value }}">
+<input {{ $attributes }} />
 @error($name)
   <p class="invalid-feedback">
     {{ $message }}

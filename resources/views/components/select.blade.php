@@ -1,16 +1,22 @@
-@props(['label' => null, 'name', 'default' => true, 'options' => [], 'value' => null])
+@props(['label' => null, 'default' => true, 'options' => [], 'value' => null])
 
 @php
-  $value = $value ?? old($name) ?? '';
+  $name = $attributes->get('name');
+  $id = $attributes->has('id') ? $attributes->get('id') : $name;
+  $error = $errors->get($name);
+
+  $attributes = $attributes
+    ->class(['form-select', 'is-invalid' => $error])
+    ->merge(['id' => $name]);
 @endphp
 
 @if ($label)
   <label class="form-label" for="{{ $name }}">{{ $label }}</label>
 @endif
-<select {{ $attributes }} class="form-select @error($name)is-invalid @enderror" name="{{ $name }}" id="{{ $name }}">
+<select {{ $attributes }}>
   @if ($default)
     <option value="" @selected($value === '')>
-      Seleccionar...
+      {{ $default === true ? 'Seleccionar...' : $default }}
     </option>
   @endif
   {{ $slot }}

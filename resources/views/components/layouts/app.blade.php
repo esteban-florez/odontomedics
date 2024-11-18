@@ -1,4 +1,11 @@
-@props(['title', 'breadcrumbs' => [], 'rightbar' => '','container' => true])
+@props(['title', 'breadcrumbs' => [], 'rightbar' => '','container' => true, 'vite' => []])
+
+@php
+  $vite = collect($vite)
+  ->prepend('app.js')
+  ->map(fn($path) => "resources/js/$path")
+  ->all();
+@endphp
 
 <!DOCTYPE html>
 <html dir="ltr" lang="es">
@@ -10,9 +17,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon.png') }}">
   <title>Odontomedics - Clínica Odontológica</title>
   <link href="{{ asset('vendor/css/styles.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('app.css') }}" rel="stylesheet">
   @stack('css')
-  @vite(['resources/js/app.js'])
+  @vite($vite)
 </head>
 
 <body>

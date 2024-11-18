@@ -1,4 +1,11 @@
-@props(['onboarding' => false])
+@props(['onboarding' => false, 'vite' => []])
+
+@php
+  $vite = collect($vite)
+  ->prepend('app.js')
+  ->map(fn($path) => "resources/js/$path")
+  ->all();
+@endphp
 
 <!DOCTYPE html>
 <html dir="ltr" lang="es">
@@ -10,8 +17,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon.png') }}">
   <title>Odontomedics - Clínica Odontológica</title>
   <link href="{{ asset('vendor/css/styles.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-  @vite(['resources/js/auth.js'])
+  <link href="{{ asset('app.css') }}" rel="stylesheet">
+  @vite($vite)
 </head>
 
 <body>
