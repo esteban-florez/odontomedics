@@ -11,10 +11,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TreatmentController;
-use App\Models\Appointment;
-use App\Models\User;
-use App\Notifications\AppointmentScheduled;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 
 /*
