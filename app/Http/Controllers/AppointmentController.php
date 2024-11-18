@@ -77,23 +77,21 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        $query = Product::with('purchases')
+        $products = Product::with('purchases')
             ->withSum('purchases as stock', 'amount')
             ->having('stock', '>', 0);
 
-        $products = Product::selectable($query);
+        $procedures = Procedure::where('patient_id', $appointment->patient->id)
+            ->whereNull('finished_at');
 
         $appointment->load('patient', 'doctor', 'procedure', 'procedure.items', 'procedure.items.products');
 
         return view('appointments.edit', [
-            'products' => $products,
             'appointment' => $appointment,
+            'products' => Product::selectable($products),
+            'procedures' => Procedure::selectable($procedures),
             'diagnoses' => Diagnosis::selectable(),
             'treatments' => Treatment::selectable(),
-            'procedures' => Procedure::where('patient_id', $appointment->patient->id)
-                ->whereNull('finished_at')
-                ->latest()
-                ->get(),
         ]);
     }
 
