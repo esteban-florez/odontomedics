@@ -28,8 +28,12 @@
         </div>
       </div>
       <div class="col-lg-12 d-flex gap-2 mt-3" v-if="!newTreatment">
-        <button type="submit" class="btn btn-success">{{ $title }}</button>
-        <a href="{{ route('doctors.index') }}" class="btn btn-light">Volver al listado</a>
+        <button type="submit" class="btn btn-success">
+          {{ $title }}
+        </button>
+        <a href="{{ route('doctors.index') }}" class="btn btn-light">
+          Volver al listado
+        </a>
       </div>
     </x-section>
     <x-section v-if="newTreatment">
@@ -52,22 +56,34 @@
       <div class="col-lg-12">
         <h4 class="text-dark fw-medium h4 text-center mb-3">Insumos del tratamiento</h4>
         <div class="row mt-4 justify-content-center">
-          <div class="col-lg-4 d-flex align-items-center gap-2">
-            Insumo:
-            <x-select v-model="productId">
-              <option v-for="product of available" :value="product.id">
-                @{{ product.name }}
-              </option>
-            </x-select>
-          </div>
-          <div class="col-lg-4 d-flex align-items-center gap-2">
-            Cantidad:
-            <x-input type="number" placeholder="Ej. 2" v-model.number="amount" />
-          </div>
-          <div class="col-lg-3">
-            <button @click="add" type="button" class="btn btn-success w-100" :class="{ 'btn-disabled': disabled }" :disabled="disabled">
-              Añadir insumo
-            </button>
+          <template v-if="available.length > 0">
+            <div class="col-lg-4 d-flex align-items-center gap-2">
+              Insumo:
+              <x-select v-model="productId">
+                <option v-for="product of available" :value="product.id">
+                  @{{ product.name }}
+                </option>
+              </x-select>
+            </div>
+            <div class="col-lg-4 d-flex flex-column gap-1">
+              <div class="d-flex align-items-center gap-2">
+                Cantidad:
+                <x-input type="number" placeholder="Ej. 2" ::max="max" min="1" v-model.number="amount" ::class="{ 'is-invalid': error }" />
+              </div>
+              <span class="invalid-feedback d-block mt-n1 w-full text-center" v-if="error">
+                La cantidad debe estar entre 1 y @{{ max }}
+              </span>
+            </div>
+            <div class="col-lg-3">
+              <button @click="add" type="button" class="btn btn-success w-100" :class="{ 'btn-disabled': disabled }" :disabled="disabled">
+                Añadir insumo
+              </button>
+            </div>
+          </template>
+          <div class="col-lg-12" v-else>
+            <p class="fw-bold text-center mb-0">
+              No existen más insumos disponibles para añadir.
+            </p>
           </div>
         </div>
       </div>
@@ -107,8 +123,12 @@
         </div>
       </div>
       <div class="col-lg-12 d-flex gap-2 mt-3" v-if="newTreatment">
-        <button type="submit" class="btn btn-success">{{ $title }}</button>
-        <a href="{{ route('doctors.index') }}" class="btn btn-light">Volver al listado</a>
+        <button type="submit" class="btn btn-success">
+          {{ $title }}
+        </button>
+        <a href="{{ route('doctors.index') }}" class="btn btn-light">
+          Volver al listado
+        </a>
       </div>
     </x-section>
   </form>

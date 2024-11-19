@@ -1,43 +1,53 @@
-import { createApp, ref, onMounted, computed, watch } from 'vue/dist/vue.esm-browser.prod.js'
+import { createApp, ref, onMounted, computed } from 'vue/dist/vue.esm-browser.prod.js'
 
 function setup() {
   const products = ref(new Map())
   const items = ref(new Map())
   const productId = ref('')
   const amount = ref('')
-  const treatment = ref('')
-  const disabled = computed(() => Boolean(!productId.value || !amount.value))
+  const treatment = ref('new')
+
+  const selected = computed(() => products.value.get(productId.value))
+  const max = computed(() => selected.value?.stock ?? 0)
+  const error = computed(amountError)
+  const disabled = computed(() => !productId.value || !amount.value || error.value)
   const newTreatment = computed(() => treatment.value === 'new')
+  const available = computed(availableProducts)
+
+  onMounted(async () => {
+    const response = await fetch('/api/products')
+    const data = await response.json()
   
-  const available = computed(() => {
+    data.forEach(product => {
+      products.value.set(product.id, product)
+    })
+  })
+
+  function availableProducts() {
     return Array.from(products.value.values())
       .filter(product => !items.value.has(product.id))
-  })
+  }
+
+  function amountError() {
+    console.log(amount.value)
+    if (!productId.value || amount.value === '') return false
+    const value = Number(amount.value)
+    return value > max.value || value <= 0
+  }
 
   function remove(id) {
     items.value.delete(id)
   }
-  
-  watch(newTreatment, () => console.log(newTreatment.value))
 
   function add() {
     items.value.set(productId.value, {
-      ...products.value.get(productId.value),
+      ...selected.value,
       amount: amount.value,
     })
 
     productId.value = ''
     amount.value = ''
   }
-
-  onMounted(async () => {
-    const response = await fetch('/api/products')
-    const data = await response.json()
-
-    data.forEach(product => {
-      products.value.set(product.id, product)
-    })
-  })
 
   return {
     products,
@@ -50,9 +60,9 @@ function setup() {
     disabled,
     treatment,
     newTreatment,
+    max,
+    error,
   }
 }
 
-/** @type {import('vue').Component} */
-const app = { setup }
-createApp(app).mount('#products')
+createApp({ setup }).mount('#products')
