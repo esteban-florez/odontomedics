@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Diagnosis;
+use App\Enums\Method;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
@@ -92,6 +93,7 @@ class AppointmentController extends Controller
             'procedures' => Procedure::selectable($procedures),
             'diagnoses' => Diagnosis::selectable(),
             'treatments' => Treatment::selectable(),
+            'methods' => Method::selectable(),
         ]);
     }
 
@@ -100,7 +102,9 @@ class AppointmentController extends Controller
      */
     public function update(UpdateAppointmentRequest $request, Appointment $appointment)
     {
-        //
+        logger('Req', $request->all());
+
+        return back()->withInput();
     }
 
     /**

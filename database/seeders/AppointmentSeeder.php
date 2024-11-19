@@ -20,45 +20,48 @@ class AppointmentSeeder extends Seeder
         $doctor = Doctor::first()->id;
 
         Appointment::create([
-            'date' => now()->subDays(7)->format('Y-m-d'),
+            'date' => now()->subDays(7),
             'time' => '10:00',
             'diagnosis' => Diagnosis::Caries,
-            'completed' => true,
             'patient_id' => $patient,
             'doctor_id' => $doctor,
-            'created_at' => now()->subDay(5)->format('Y-m-d'),
-            'updated_at' => now()->subDay(5)->format('Y-m-d'),
+            'created_at' => now()->subDay(5),
+            'updated_at' => now()->subDay(5),
         ]);
 
         Appointment::create([
-            'date' => now()->subDays(5)->format('Y-m-d'),
+            'date' => now()->subDays(5),
             'time' => '10:00',
-            'completed' => true,
+            'diagnosis' => Diagnosis::Caries,
             'patient_id' => $patient,
             'doctor_id' => $doctor,
             'procedure_id' => Procedure::first()->id,
-            'created_at' => now()->subDay(2)->format('Y-m-d'),
-            'updated_at' => now()->subDay(2)->format('Y-m-d'),
+            'created_at' => now()->subDay(2),
+            'updated_at' => now()->subDay(2),
         ]);
 
         Appointment::create([
-            'date' => now()->addDay(3)->format('Y-m-d'),
-            'time' => '08:00',
-            'patient_id' => $patient,
-            'doctor_id' => Doctor::skip(1)->first()->id,
-        ]);
-
-        Appointment::create([
-            'date' => now()->addDay(15)->format('Y-m-d'),
-            'time' => '09:00',
-            'patient_id' => $patient,
-        ]);
-
-        Appointment::create([
-            'date' => now()->subDay(1)->format('Y-m-d'),
+            'date' => now()->subDay(1),
             'time' => '01:00',
             'patient_id' => Patient::skip(1)->first()->id,
             'doctor_id' => $doctor,
+        ]);
+
+        Appointment::create([
+            'date' => now()->addDay(3),
+            'time' => '08:00',
+            'patient_id' => $patient,
+            'doctor_id' => Doctor::skip(1)->first()->id,
+            'created_at' => now()->addSecond(1),
+            'updated_at' => now()->addSecond(1),
+        ]);
+
+        Appointment::create([
+            'date' => now()->addDay(15),
+            'time' => '09:00',
+            'patient_id' => $patient,
+            'created_at' => now()->addSecond(2),
+            'updated_at' => now()->addSecond(2),
         ]);
     }
 }

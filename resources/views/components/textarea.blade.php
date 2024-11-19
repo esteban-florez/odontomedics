@@ -1,13 +1,19 @@
-@props(['label' => null, 'value' => null])
+@props(['label' => null, 'value' => null, 'optional' => false])
 
 @php
   $name = $attributes->get('name');
   $id = $attributes->has('id') ? $attributes->get('id') : $name;
   $error = $errors->get($name);
 
+  $merge = ['id' => $name, 'rows' => 2];
+
+  if (!$optional) {
+    $merge['required'] = true;
+  }
+
   $attributes = $attributes
     ->class(['form-control', 'is-invalid' => $error])
-    ->merge(['id' => $name, 'rows' => 2]);
+    ->merge($merge);
 @endphp
 
 @if ($label)

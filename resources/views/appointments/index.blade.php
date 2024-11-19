@@ -46,19 +46,15 @@
 
           $status = $appointment->status;
           
+          $pending = $status === Status::Pending;
+          $approved = $status === Status::Approved;
+          $canceled = $status === Status::Canceled;
           $unfilled = $status === Status::Unfilled;
           $completed = $status === Status::Completed;
-          $approved = $status === Status::Approved;
-          $pending = $status === Status::Pending;
-          $canceled = $status === Status::Canceled;
 
           $cancelable = $approved || $pending;
-          $editable = $unfilled || $completed;
 
           $defaultDoctor = $canceled ? 'No asignado' : 'Por asignar';
-
-          $btn = $completed ? 'btn-warning' : 'btn-primary';
-          $text = $completed ? 'Editar' : 'Completar';
         @endphp
         <tr>
           <td>{{ $appointment->date->format('d-m-Y') }}</td>
@@ -75,9 +71,9 @@
           <td>{{ $appointment->diagnosis ?? 'N/A' }}</td>
           <td>{{ $appointment->procedure?->treatment?->name ?? 'N/A' }}</td>
           <td>
-            @if ($admin && $editable)
-              <a class="btn btn-sm {{ $btn }}" href="{{ route('appointments.edit', $appointment) }}">
-                {{ $text }}
+            @if ($admin && $unfilled)
+              <a class="btn btn-sm btn-primary" href="{{ route('appointments.edit', $appointment) }}">
+                Completar
               </a>
             @elseif ($cancelable)
               <form action="{{ route('appointments.destroy', $appointment) }}" method="post">

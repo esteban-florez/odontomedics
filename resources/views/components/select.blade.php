@@ -1,13 +1,19 @@
-@props(['label' => null, 'default' => true, 'options' => [], 'value' => null])
+@props(['label' => null, 'default' => true, 'options' => [], 'value' => null, 'optional' => false])
 
 @php
   $name = $attributes->get('name');
   $id = $attributes->has('id') ? $attributes->get('id') : $name;
   $error = $errors->get($name);
 
+  $merge = ['id' => $name];
+
+  if (!$optional) {
+    $merge['required'] = true;
+  }
+
   $attributes = $attributes
     ->class(['form-select', 'is-invalid' => $error])
-    ->merge(['id' => $name]);
+    ->merge($merge);
 @endphp
 
 @if ($label)

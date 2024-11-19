@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\Treatment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('products', function () {
-    return Product::with('purchases')
-        ->withSum('purchases as stock', 'amount')
+    return Product::withSum('purchases as stock', 'amount')
         ->having('stock', '>', 0)
-        ->get()
-        ->except('purchases');
+        ->get();
+})->middleware('auth:sanctum');
+
+Route::get('treatments', function () {
+    return Treatment::all();
 })->middleware('auth:sanctum');

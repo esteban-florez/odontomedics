@@ -51,13 +51,14 @@ class Appointment extends Model
         return Attribute::make(function () {
             $outdated = $this->outdated;
             $assigned = !!$this->doctor;
+            $completed = !!$this->diagnosis;
             
             $status = match (true) {
                 $this->canceled || ($outdated && !$assigned) => Status::Canceled,
                 !$outdated && !$assigned => Status::Pending,
                 !$outdated && $assigned => Status::Approved,
-                !$this->completed && $outdated && $assigned => Status::Unfilled,
-                $this->completed && $outdated && $assigned => Status::Completed,
+                !$completed && $outdated && $assigned => Status::Unfilled,
+                $completed && $outdated && $assigned => Status::Completed,
             };
 
             return $status;
