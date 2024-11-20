@@ -43,7 +43,7 @@ class AppointmentSeeder extends Seeder
         Appointment::create([
             'date' => now()->subDay(1),
             'time' => '01:00',
-            'patient_id' => Patient::skip(1)->first()->id,
+            'patient_id' => Patient::first()->id,
             'doctor_id' => $doctor,
         ]);
 

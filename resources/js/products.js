@@ -42,6 +42,9 @@ function setup() {
         map.value.set(model.id, model)
       })
     }
+
+    const field = document.querySelector('#procedure_id')
+    procedureId.value = field.value
   })
 
   function itemsSum() {

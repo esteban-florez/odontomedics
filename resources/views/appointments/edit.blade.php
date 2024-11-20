@@ -1,5 +1,13 @@
 <x-layouts.app title="Completar cita" :breadcrumbs="['Citas', route('appointments.edit', $appointment) => 'Completar cita']" :vite="['products.js']" :container="false">
 
+@php
+  $new = new \stdClass();
+  $new->id = 'new';
+  $new->label = 'Crear nuevo tratamiento';
+
+  $procedures->prepend($new);
+@endphp
+
 <div class="container-fluid" id="products">
   <form class="hidden" id="new-items-form" @submit.prevent="add" :disabled="disabled"></form>
   <form class="contents" method="POST" action="{{ route('appointments.update', $appointment) }}">
@@ -14,9 +22,7 @@
         </div>
         <div class="col-lg-6">
           <div class="form-group mb-3">
-            <x-select label="Tratamiento" name="procedure_id" :options="$procedures" default="Sin tratamiento" v-model="procedureId" optional>
-              <option value="new">Crear nuevo tratamiento</option>
-            </x-select>
+            <x-select label="Tratamiento" name="procedure_id" :options="$procedures" default="Sin tratamiento" v-model="procedureId" optional />
           </div>
         </div>
       </div>
@@ -34,13 +40,10 @@
         <h4 class="text-dark fw-medium text-center">Datos del tratamiento</h4>
         <div class="row mt-4">
           <div class="col-lg-4">
-            <x-select label="Servicio realizado" name="treatment_id" :options="$treatments"  v-model.number="treatmentId" />
+            <x-select label="Servicio realizado" name="treatment_id" :options="$treatments" v-model.number="treatmentId" />
           </div>
           <div class="col-lg-4">
-            <x-select label="Estado de progreso" name="status" :default="false">
-              <option value="active">En curso</option>
-              <option value="finished">Finalizado</option>
-            </x-select>
+            <x-select label="Estado de progreso" name="progress" :default="false" :options="$progress" />
           </div>
           <div class="col-lg-4">
             <x-input label="Descripción" name="description" placeholder="Introduce la descripción..." />
@@ -143,7 +146,7 @@
                   <span>${{ totalPrice.toFixed(2) }}</span>
                 </li>
               </ul>
-              <input type="hidden" name="total" :value="totalPrice">
+              <input type="hidden" name="total" :value="totalPrice.toFixed(2)">
             @endverbatim
           </div>
         </div>

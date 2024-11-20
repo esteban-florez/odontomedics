@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Enums\Diagnosis;
 use App\Enums\Method;
+use App\Enums\Progress;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
+use App\Models\Bill;
+use App\Models\Item;
 use App\Models\User;
 use App\Models\Procedure;
 use App\Models\Product;
@@ -94,6 +97,7 @@ class AppointmentController extends Controller
             'diagnoses' => Diagnosis::selectable(),
             'treatments' => Treatment::selectable(),
             'methods' => Method::selectable(),
+            'progress' => Progress::selectable(),
         ]);
     }
 
@@ -102,9 +106,46 @@ class AppointmentController extends Controller
      */
     public function update(UpdateAppointmentRequest $request, Appointment $appointment)
     {
-        logger('Req', $request->all());
+        $data = $request->safe();
+        $appointment->diagnosis = $data->input('diagnosis');
+        
+        if ($request->input('procedure_id') === 'new') {
+            $finished = $data->input('progress') === Progress::Finished
+                ? now()
+                : null;
+            
+            $procedure = Procedure::create([
+                ...$data->only(['description', 'finished_at', 'treatment_id']),
+                'finished_at' => $finished,
+                'patient_id' => $appointment->patient->id,
+            ]);
 
-        return back()->withInput();
+            $items = json_decode($data->input('items'));
+
+            logger('items', [$items]);
+
+            foreach ($items as $item) {
+                Item::create([
+                    'amount' => $item->amount,
+                    'product_id' => $item->id,
+                    'procedure_id' => $procedure->id,
+                ]);
+            }
+
+            Bill::create([
+                ...$data->only(['method', 'total']),
+                'procedure_id' => $procedure->id,
+            ]);
+
+            $appointment->procedure_id = $procedure->id;
+        } else {
+            $appointment->procedure_id = $data->input('procedure_id');
+        }
+
+        $appointment->save();
+        
+        return to_route('appointments.index')
+            ->with('alert', 'La cita se ha completado correctamente.');
     }
 
     /**
