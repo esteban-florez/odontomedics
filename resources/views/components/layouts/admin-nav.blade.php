@@ -132,7 +132,7 @@
   </a>
   <ul aria-expanded="false" class="collapse first-level base-level-line">
     <li class="sidebar-item">
-      <a href="form-inputs.html" class="sidebar-link">
+      <a href="javascript:void(0)" class="sidebar-link">
         <span class="hide-menu">Lista de Tratamientos</span>
       </a>
     </li>
@@ -146,7 +146,7 @@
   </a>
   <ul aria-expanded="false" class="collapse first-level base-level-line">
     <li class="sidebar-item">
-      <a href="form-inputs.html" class="sidebar-link">
+      <a href="javascript:void(0)" class="sidebar-link">
         <span class="hide-menu">Historial de Facturas</span>
       </a>
     </li>
@@ -160,7 +160,7 @@
   </a>
   <ul aria-expanded="false" class="collapse first-level base-level-line">
     <li class="sidebar-item">
-      <a href="form-inputs.html" class="sidebar-link">
+      <a href="javascript:void(0)" class="sidebar-link">
         <span class="hide-menu">Historial de Inventario</span>
       </a>
     </li>
