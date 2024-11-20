@@ -14,9 +14,12 @@ class BillSeeder extends Seeder
      */
     public function run(): void
     {
+        $procedure = Procedure::first();
+        $total = $procedure->items->reduce(fn($sum, $item) => $sum + $item->product->price) + $procedure->treatment->price;
+
         Bill::create([
-            'procedure_id' => Procedure::first()->id,
-            'total' => 190, // numero arbitrario
+            'procedure_id' => $procedure->id,
+            'total' => $total,
             'method' => Method::PagoMovil,
         ]);
     }

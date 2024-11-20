@@ -146,7 +146,7 @@
   </a>
   <ul aria-expanded="false" class="collapse first-level base-level-line">
     <li class="sidebar-item">
-      <a href="javascript:void(0)" class="sidebar-link">
+      <a href="{{ route('bills.index') }}" class="sidebar-link">
         <span class="hide-menu">Historial de Facturas</span>
       </a>
     </li>

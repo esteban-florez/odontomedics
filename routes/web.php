@@ -76,7 +76,7 @@ Route::resource('procedures', ProcedureController::class)
     ->only('index', 'show');
 
 Route::resource('bills', BillController::class)
-    ->except('show');
+    ->only('index', 'show');
 
 Route::controller(PendingAppointmentController::class)->group(function () {
     Route::get('appointments/pending', 'index')

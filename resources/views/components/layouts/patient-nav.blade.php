@@ -37,7 +37,7 @@
 </li>
 
 <li class="sidebar-item">
-  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+  <a class="sidebar-link" href="{{ route('bills.index') }}" aria-expanded="false">
     <i data-feather="file-text" class="feather-icon"></i>
     <span class="hide-menu pt-1">Mis facturas</span>
   </a>
