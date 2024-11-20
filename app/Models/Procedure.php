@@ -48,10 +48,7 @@ class Procedure extends Model
     public function progress(): Attribute 
     {
         return Attribute::make(function () {            
-            return match (true) {
-                !$this->finished_at => Progress::Active,
-                $this->finished_at => Progress::Finished,
-            };
+            return !$this->finished_at ? Progress::Active : Progress::Finished;
         });
     }
 }

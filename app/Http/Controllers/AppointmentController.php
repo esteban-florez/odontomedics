@@ -111,7 +111,7 @@ class AppointmentController extends Controller
         $appointment->diagnosis = $data->input('diagnosis');
         
         if ($request->input('procedure_id') === 'new') {
-            $finished = $data->input('progress') === Progress::Finished
+            $finished = $data->input('progress') === Progress::Finished->value
                 ? now()
                 : null;
             
