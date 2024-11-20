@@ -15,6 +15,7 @@ use App\Models\Procedure;
 use App\Models\Product;
 use App\Models\Treatment;
 use App\Notifications\AppointmentScheduled;
+use App\Notifications\BillGenerated;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -138,12 +139,14 @@ class AppointmentController extends Controller
             ]);
 
             $appointment->procedure_id = $procedure->id;
+
+            Notification::send($appointment->patient->user, new BillGenerated($appointment));
         } else {
             $appointment->procedure_id = $data->input('procedure_id');
         }
 
         $appointment->save();
-        
+
         return to_route('appointments.index')
             ->with('alert', 'La cita se ha completado correctamente.');
     }
