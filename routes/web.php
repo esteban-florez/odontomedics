@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PendingAppointmentController;
+use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SupplierController;
@@ -68,6 +70,12 @@ Route::resource('suppliers', SupplierController::class)
     ->except('show', 'delete');
 
 Route::resource('appointments', AppointmentController::class)
+    ->except('show');
+
+Route::resource('procedures', ProcedureController::class)
+    ->only('index', 'show');
+
+Route::resource('bills', BillController::class)
     ->except('show');
 
 Route::controller(PendingAppointmentController::class)->group(function () {

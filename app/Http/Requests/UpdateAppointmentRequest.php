@@ -24,7 +24,7 @@ class UpdateAppointmentRequest extends FormRequest
             'procedure_id' => ['nullable', 'string'],
             'treatment_id' => [$exclude, 'required', 'integer'],
             'progress' => [$exclude, 'required', Rule::enum(Progress::class)],
-            'description' => [$exclude, 'required', 'string', 'min:5', 'max:50'],
+            'description' => [$exclude, 'required', 'string', 'min:2', 'max:50'],
             'items' => [$exclude, 'required', 'json'],
             'total' => [$exclude, 'required', 'numeric', 'decimal:2'],
             'method' => [$exclude, 'required', Rule::enum(Method::class)],

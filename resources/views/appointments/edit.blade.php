@@ -46,7 +46,7 @@
             <x-select label="Estado de progreso" name="progress" :default="false" :options="$progress" />
           </div>
           <div class="col-lg-4">
-            <x-input label="Descripción" name="description" placeholder="Introduce la descripción..." />
+            <x-input label="Descripción" name="description" placeholder="Introduce la descripción..." min="2" max="50" />
           </div>
         </div>
       </div>

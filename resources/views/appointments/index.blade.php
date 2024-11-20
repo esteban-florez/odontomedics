@@ -4,6 +4,8 @@
   $patient = !$admin;
 
   $group = $admin ? 'Citas' : 'Mis citas';
+
+  $cols = $admin ? 8 : 7;
 @endphp
 
 
@@ -93,7 +95,7 @@
         </tr>
       @empty
         <tr>
-          <td class="text-center" colspan="7">No existen registros.</td>
+          <td class="text-center" colspan="{{ $cols }}">No existen registros.</td>
         </tr>
       @endforelse
     </tbody>

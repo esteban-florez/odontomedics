@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProcedureRequest;
 use App\Http\Requests\UpdateProcedureRequest;
 use App\Models\Procedure;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ProcedureController extends Controller
 {
@@ -13,7 +15,19 @@ class ProcedureController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        $with = ['appointments', 'appointments.doctor', 'bill', 'patient', 'treatment', 'items', 'items.product'];
+
+        $procedures = Procedure::with($with)
+            ->when(!$user->is_admin, fn(Builder $query) 
+                => $query->where('patient_id', $user->patient->id))
+            ->latest()
+            ->get();
+
+        return view('procedures.index', [
+            'procedures' => $procedures,
+        ]);
     }
 
     /**
