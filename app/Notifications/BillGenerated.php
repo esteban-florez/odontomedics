@@ -44,7 +44,7 @@ class BillGenerated extends Notification
             'title' => 'Tienes un nuevo pago',
             'text' => "Se registró un pago de {$appointment->procedure->bill->ftotal} por tu cita del {$appointment->date->format('d/m/Y')}.",
             'time' => $appointment->updated_at,
-            'href' => route('appointments.index'),
+            'href' => route('bills.index'),
         ];
     }
 
