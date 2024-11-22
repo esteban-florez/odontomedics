@@ -55,10 +55,14 @@ Route::withoutMiddleware('auth')->middleware('guest')->group(function () {
 
 Route::get('/', HomeController::class)->name('home');
 
+Route::get('/patients/pdf', [PatientController::class, 'pdf'])
+    ->name('patients.pdf');
 Route::resource('patients', PatientController::class)
     ->except('show', 'delete');
 
-Route::resource('doctors', DoctorController::class)
+Route::get('/doctors/pdf', [DoctorController::class, 'pdf'])
+    ->name('doctors.pdf');
+Route::resource('doctors', controller: DoctorController::class)
     ->except('show', 'delete');
 
 Route::resource('treatments', TreatmentController::class)
@@ -70,6 +74,8 @@ Route::resource('products', ProductController::class)
 Route::resource('suppliers', SupplierController::class)
     ->except('show', 'delete');
 
+Route::get('/appointments/pdf', [AppointmentController::class, 'pdf'])
+    ->name('appointments.pdf');
 Route::resource('appointments', AppointmentController::class)
     ->except('show');
 

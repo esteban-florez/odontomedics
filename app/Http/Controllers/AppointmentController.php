@@ -17,6 +17,7 @@ use App\Models\Treatment;
 use App\Notifications\AppointmentScheduled;
 use App\Notifications\BillGenerated;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
@@ -32,8 +33,8 @@ class AppointmentController extends Controller
         $with = ['patient', 'doctor', 'procedure', 'procedure.treatment'];
 
         $appointments = Appointment::with($with)
-            ->when(!$user->is_admin, fn(Builder $query) 
-                => $query->where('patient_id', $user->patient->id))
+            ->when(!$user->is_admin, fn(Builder $query)
+            => $query->where('patient_id', $user->patient->id))
             ->latest()
             ->get();
 
@@ -109,12 +110,12 @@ class AppointmentController extends Controller
     {
         $data = $request->safe();
         $appointment->diagnosis = $data->input('diagnosis');
-        
+
         if ($request->input('procedure_id') === 'new') {
             $finished = $data->input('progress') === Progress::Finished->value
                 ? now()
                 : null;
-            
+
             $procedure = Procedure::create([
                 ...$data->only(['description', 'finished_at', 'treatment_id']),
                 'finished_at' => $finished,
@@ -162,5 +163,22 @@ class AppointmentController extends Controller
 
         return to_route('appointments.index')
             ->with('alert', 'Has cancelado tu cita correctamente.');
+    }
+
+    public function pdf()
+    {
+        $image = base64_encode(file_get_contents(public_path('img/logo.png')));
+        $user = Auth::user();
+
+        $with = ['patient', 'doctor', 'procedure', 'procedure.treatment'];
+
+        $appointments = Appointment::with($with)
+            ->when(!$user->is_admin, fn(Builder $query)
+            => $query->where('patient_id', $user->patient->id))
+            ->latest()
+            ->get();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdfs.appointments', ['appointments' => $appointments, 'image' => $image]);
+        return $pdf->stream();
     }
 }

@@ -6,6 +6,7 @@ use App\Enums\Specialty;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Doctor;
+use Illuminate\Support\Facades\App;
 
 class DoctorController extends Controller
 {
@@ -60,5 +61,14 @@ class DoctorController extends Controller
 
         return to_route('doctors.index')
             ->with('alert', 'El doctor se ha editado correctamente');
+    }
+
+    public function pdf()
+    {
+        $image = base64_encode(file_get_contents(public_path('img/logo.png')));
+        $doctors = Doctor::latest()->get();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdfs.doctors', ['doctors' => $doctors, 'image' => $image]);
+        return $pdf->stream();
     }
 }
