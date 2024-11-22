@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OnboardController;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 Route::withoutMiddleware('auth')->middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])
         ->name('login');
-    
+
     Route::post('/login', [LoginController::class, 'store'])
         ->name('auth');
 
@@ -43,7 +44,7 @@ Route::withoutMiddleware('auth')->middleware('guest')->group(function () {
     Route::post('/register', [RegisterController::class, 'store'])
         ->name('register.store');
 
-    Route::controller(OnboardController::class)->group(function () { 
+    Route::controller(OnboardController::class)->group(function () {
         Route::post('/onboard', 'store')
             ->name('onboard.store');
 
@@ -52,7 +53,7 @@ Route::withoutMiddleware('auth')->middleware('guest')->group(function () {
     });
 });
 
-Route::view('/', 'home')->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 Route::resource('patients', PatientController::class)
     ->except('show', 'delete');
@@ -81,7 +82,7 @@ Route::resource('bills', BillController::class)
 Route::controller(PendingAppointmentController::class)->group(function () {
     Route::get('appointments/pending', 'index')
         ->name('pending-appointments.index');
-    
+
     Route::patch('appointments/pending/{appointment}', 'update')
         ->name('pending-appointments.update');
 });
