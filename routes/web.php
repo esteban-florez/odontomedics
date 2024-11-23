@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\BackupController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
@@ -95,3 +96,12 @@ Route::controller(PendingAppointmentController::class)->group(function () {
 
 Route::post('/notifications', NotificationController::class)
     ->name('notifications');
+
+Route::controller(BackupController::class)
+    ->group(function () {
+        Route::get('/backups', 'index')->name('backups.index');
+        Route::get('/backups/create', 'create')->name('backups.create');
+        Route::get('/backups/{id}', 'download')->name('backups.download');
+        Route::get('/backups/{id}/delete', 'delete')->name('backups.delete');
+        Route::patch('/backups/{id}/restore', 'restore')->name('backups.restore');
+    });
