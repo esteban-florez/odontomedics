@@ -11,15 +11,23 @@ class Doctor extends Model
 {
     use HasFactory, HasSelectable;
 
-    public function appointments() {
+    public function appointments()
+    {
         return $this->hasMany(Appointment::class);
     }
 
-    public function fullname(): Attribute {
+    public function fullname(): Attribute
+    {
         return Attribute::make(fn() => "$this->name $this->surname");
     }
 
-    public function cedula(): Attribute {
+    public function cedula(): Attribute
+    {
         return Attribute::make(fn() => "V-$this->ci");
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

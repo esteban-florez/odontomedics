@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('surname');
             $table->string('ci')->unique();
             $table->enum('specialty', Specialty::values()->all());
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

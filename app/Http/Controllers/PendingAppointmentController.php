@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Notifications\AppointmentSetted;
 use App\Notifications\DoctorAssigned;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -32,6 +33,7 @@ class PendingAppointmentController extends Controller
         $appointment->update($data);
 
         Notification::send($appointment->patient->user, new DoctorAssigned($appointment));
+        Notification::send($appointment->doctor->user, new AppointmentSetted($appointment));
 
         return to_route('pending-appointments.index')
             ->with('alert', 'Se asignó el doctor a la cita correctamente.');

@@ -1,6 +1,7 @@
 @use(App\Enums\Status)
 @php
     $admin = auth()->user()->is_admin;
+    $is_doctor = auth()->user()->doctor;
     $patient = !$admin;
 
     $group = $admin ? 'Citas' : 'Mis citas';
@@ -11,7 +12,7 @@
 
 <x-layouts.app title="Listado de citas" :breadcrumbs="[$group, route('appointments.index') => 'Listado de citas']">
 
-    @if ($patient)
+    @if ($patient && !$is_doctor)
         <x-slot name="rightbar">
             <a href="{{ route('appointments.create') }}" class="btn btn-success">
                 Agendar cita
@@ -80,7 +81,7 @@
                         <td>{{ $appointment->diagnosis ?? 'N/A' }}</td>
                         <td>{{ $appointment->procedure?->treatment?->name ?? 'N/A' }}</td>
                         <td>
-                            @if ($admin && $unfilled)
+                            @if (($admin || $is_doctor) && $unfilled)
                                 <a class="btn btn-sm btn-primary"
                                     href="{{ route('appointments.edit', $appointment) }}">
                                     Completar

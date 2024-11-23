@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Doctor;
 use App\Enums\Specialty;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DoctorSeeder extends Seeder
@@ -13,14 +13,20 @@ class DoctorSeeder extends Seeder
      */
     public function run(): void
     {
-        Doctor::create([
+        User::create([
+            'email' => 'doctor@prueba.com',
+            'password' => 'pass123',
+        ])->doctor()->create([
             'name' => 'Ana',
             'surname' => 'Blanco',
             'specialty' => Specialty::Ortodoncia,
             'ci' => '21482492'
         ]);
 
-        Doctor::create([
+        User::create([
+            'email' => 'doctor2@prueba.com',
+            'password' => 'pass123',
+        ])->doctor()->create([
             'name' => 'Mauricio',
             'surname' => 'Hernández',
             'specialty' => Specialty::Cirugia,

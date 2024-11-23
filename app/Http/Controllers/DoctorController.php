@@ -6,6 +6,7 @@ use App\Enums\Specialty;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Doctor;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
 
 class DoctorController extends Controller
@@ -35,7 +36,13 @@ class DoctorController extends Controller
      */
     public function store(StoreDoctorRequest $request)
     {
-        Doctor::create($request->validated());
+        $request->validated();
+        $userRequest = ['email' => $request->email, 'password' => $request->password];
+        $doctorRequest = $request->except(['email', 'password', '_token', 'password_confirmation']);
+
+        User::create($userRequest)
+            ->doctor()
+            ->create($doctorRequest);
 
         return to_route('doctors.index')
             ->with('alert', 'El docotor se ha registrado correctamente.');

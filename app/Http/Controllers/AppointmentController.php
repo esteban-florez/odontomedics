@@ -31,10 +31,11 @@ class AppointmentController extends Controller
         $user = Auth::user();
 
         $with = ['patient', 'doctor', 'procedure', 'procedure.treatment'];
+        $is_doctor = $user->doctor;
 
         $appointments = Appointment::with($with)
             ->when(!$user->is_admin, fn(Builder $query)
-            => $query->where('patient_id', $user->patient->id))
+            => $is_doctor ? $query->where('doctor_id', $user->doctor->id) : $query->where('patient_id', $user->patient->id))
             ->latest()
             ->get();
 

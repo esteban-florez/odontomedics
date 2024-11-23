@@ -19,11 +19,22 @@ class ProcedureController extends Controller
 
         $with = ['appointments', 'appointments.doctor', 'bill', 'patient', 'treatment', 'items', 'items.product'];
 
-        $procedures = Procedure::with($with)
-            ->when(!$user->is_admin, fn(Builder $query) 
+        $is_doctor = $user->doctor;
+        $procedures = [];
+
+        if ($is_doctor) {
+            $procedures = Procedure::with($with)
+                ->whereHas('appointments', fn(Builder $query)
+                => $query->where('doctor_id', $user->doctor->id))
+                ->latest()
+                ->get();
+        } else {
+            $procedures = Procedure::with($with)
+                ->when(!$user->is_admin, fn(Builder $query)
                 => $query->where('patient_id', $user->patient->id))
-            ->latest()
-            ->get();
+                ->latest()
+                ->get();
+        }
 
         return view('procedures.index', [
             'procedures' => $procedures,

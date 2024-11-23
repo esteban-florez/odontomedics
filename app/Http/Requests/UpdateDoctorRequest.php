@@ -21,6 +21,7 @@ class UpdateDoctorRequest extends FormRequest
             ->ignore($doctor->id);
 
         return [
+            'address' => ['required', 'string', 'min:5', 'max:50'],
             'name' => ['required', 'string', 'min:3', 'max:20'],
             'surname' => ['required', 'string', 'min:3', 'max:20'],
             'ci' => ['required', 'numeric', 'digits_between:1,8', $uniqueCi],
