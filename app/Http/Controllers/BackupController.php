@@ -14,10 +14,12 @@ class BackupController extends Controller
 {
     // protected $dump_path = "C:/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysqldump";
     protected $destination_path = '';
+    protected $appname;
 
     public function __construct()
     {
         $this->destination_path = base_path('storage/app/public/backups');
+        $this->appname = env('APP_NAME', 'Laravel');
     }
 
     public function get_size($size)
@@ -39,7 +41,7 @@ class BackupController extends Controller
 
     public function index()
     {
-        $path = storage_path('app/Laravel');
+        $path = storage_path("app/{$this->appname}");
         File::ensureDirectoryExists($path);
         $files = collect(File::files($path));
 
@@ -72,7 +74,7 @@ class BackupController extends Controller
 
     public function delete($record)
     {
-        $file_name = "/Laravel/" . $record;
+        $file_name = "/{$this->appname}/" . $record;
         $disk = Storage::disk(config('laravel.backup.backup.destination.disks'));
 
         if ($disk->exists($file_name)) {
@@ -88,7 +90,7 @@ class BackupController extends Controller
 
     public function download($record)
     {
-        $file_name = "/Laravel/" . $record;
+        $file_name = "/{$this->appname}/" . $record;
         $disk = Storage::disk(config('laravel.backup.backup.destination.disks'));
 
         if ($disk->exists($file_name)) {
@@ -110,7 +112,7 @@ class BackupController extends Controller
 
     public function restore($record)
     {
-        $file_name = "/Laravel/" . $record;
+        $file_name = "/{$this->appname}/" . $record;
         $disk = Storage::disk(config('laravel.backup.backup.destination.disks'));
         $file = $disk->readStream($file_name);
 

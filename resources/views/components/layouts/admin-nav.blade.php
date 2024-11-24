@@ -169,7 +169,7 @@
 
 <li class="sidebar-item">
     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-        <i data-feather="clipboard" class="feather-icon"></i>
+        <i data-feather="database" class="feather-icon"></i>
         <span class="hide-menu pt-1">Respaldo</span>
     </a>
     <ul aria-expanded="false" class="collapse first-level base-level-line">
