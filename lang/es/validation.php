@@ -285,6 +285,10 @@ return [
         'year'                     => 'año',
     ],
     'values' => [
-        'today' => 'hoy',
+        'date' => [
+            'today' => 'hoy',
+            'tomorrow' => 'mañana',
+            'yesterday' => 'ayer',
+        ],
     ],
 ];

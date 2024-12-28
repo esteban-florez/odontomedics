@@ -17,7 +17,7 @@
           <td>{{ $appointment->time->format('H:i A') }}</td>
           <td>{{ $appointment->patient->fullname }}</td>
           <td class="d-flex align-items-center gap-2">
-            <button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#assign-doctor-modal" data-action="{{ route('pending-appointments.update', $appointment) }}">
+            <button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target=".modal" data-action="{{ route('pending-appointments.update', $appointment) }}">
               Asignar doctor
             </button>
             <form action="{{ route('appointments.destroy', $appointment) }}" method="post">
@@ -37,7 +37,7 @@
   </table>
 </div>
 
-<x-modal title="Asignar doctor" id="assign-doctor-modal" form="assign-doctor-form">
+<x-modal title="Asignar doctor" form="assign-doctor-form">
   <form method="POST" id="assign-doctor-form">
     @csrf @method('PATCH')
     <div class="form-group mb-3">
@@ -47,6 +47,7 @@
 </x-modal>
 
 @push('js')
+  <script src="{{ asset('js/modal-edit.js') }}"></script>
   <script src="{{ asset('js/pending-appointments.js') }}"></script>
 @endpush
 

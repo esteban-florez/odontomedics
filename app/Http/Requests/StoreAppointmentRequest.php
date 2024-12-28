@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreAppointmentRequest extends FormRequest
 {
@@ -26,6 +27,21 @@ class StoreAppointmentRequest extends FormRequest
         return [
             'time.after_or_equal' => 'El campo hora debe debe ser una hora posterior o igual a las :date.',
             'time.before_or_equal' => 'El campo hora debe debe ser una hora anterior o igual a las :date.',
+        ];
+    }
+
+    public function after(): array
+    {
+        return [
+            function (Validator $validator) {
+                $failed = $validator->errors()->any();
+
+                $url = $this->url();
+
+                if ($failed && str($url)->contains('reschedule')) {
+                    session()->put('failed_action', $url);
+                }
+            }
         ];
     }
 }

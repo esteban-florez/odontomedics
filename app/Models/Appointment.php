@@ -64,4 +64,18 @@ class Appointment extends Model
             return $status;
         });
     }
+
+    public function reschedulable(): Attribute {
+        return Attribute::make(function () {
+            return $this->status === Status::Canceled 
+                || $this->status === Status::Approved;
+        });
+    }
+
+    public function cancelable(): Attribute {
+        return Attribute::make(function () {
+            return $this->status === Status::Approved 
+                || $this->status === Status::Pending;
+        });
+    }
 }

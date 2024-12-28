@@ -13,6 +13,7 @@ use App\Http\Controllers\PendingAppointmentController;
 use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RescheduleController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TreatmentController;
 use Illuminate\Support\Facades\Route;
@@ -29,40 +30,42 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::withoutMiddleware('auth')->middleware('guest')->group(function () {
-    Route::get('/login', [LoginController::class, 'create'])
+    Route::get('login', [LoginController::class, 'create'])
         ->name('login');
 
-    Route::post('/login', [LoginController::class, 'store'])
+    Route::post('login', [LoginController::class, 'store'])
         ->name('auth');
 
-    Route::delete('/login', [LoginController::class, 'destroy'])
+    Route::delete('login', [LoginController::class, 'destroy'])
         ->withoutMiddleware('guest')
         ->name('logout');
 
-    Route::get('/register', [RegisterController::class, 'create'])
+    Route::get('register', [RegisterController::class, 'create'])
         ->name('register.create');
 
-    Route::post('/register', [RegisterController::class, 'store'])
+    Route::post('register', [RegisterController::class, 'store'])
         ->name('register.store');
 
     Route::controller(OnboardController::class)->group(function () {
-        Route::post('/onboard', 'store')
+        Route::post('onboard', 'store')
             ->name('onboard.store');
 
-        Route::delete('/onboard', 'destroy')
+        Route::delete('onboard', 'destroy')
             ->name('onboard.destroy');
     });
 });
 
-Route::get('/', HomeController::class)->name('home');
+Route::get('', HomeController::class)->name('home');
 
-Route::get('/patients/pdf', [PatientController::class, 'pdf'])
+Route::get('patients/pdf', [PatientController::class, 'pdf'])
     ->name('patients.pdf');
+
 Route::resource('patients', PatientController::class)
     ->except('show', 'delete');
 
-Route::get('/doctors/pdf', [DoctorController::class, 'pdf'])
+Route::get('doctors/pdf', [DoctorController::class, 'pdf'])
     ->name('doctors.pdf');
+
 Route::resource('doctors', controller: DoctorController::class)
     ->except('show', 'delete');
 
@@ -75,8 +78,9 @@ Route::resource('products', ProductController::class)
 Route::resource('suppliers', SupplierController::class)
     ->except('show', 'delete');
 
-Route::get('/appointments/pdf', [AppointmentController::class, 'pdf'])
+Route::get('appointments/pdf', [AppointmentController::class, 'pdf'])
     ->name('appointments.pdf');
+
 Route::resource('appointments', AppointmentController::class)
     ->except('show');
 
@@ -94,14 +98,17 @@ Route::controller(PendingAppointmentController::class)->group(function () {
         ->name('pending-appointments.update');
 });
 
-Route::post('/notifications', NotificationController::class)
+Route::patch('appointments/reschedule/{appointment}', RescheduleController::class)
+    ->name('reschedule-appointment');
+
+Route::post('notifications', NotificationController::class)
     ->name('notifications');
 
 Route::controller(BackupController::class)
     ->group(function () {
-        Route::get('/backups', 'index')->name('backups.index');
-        Route::get('/backups/create', 'create')->name('backups.create');
-        Route::get('/backups/{id}', 'download')->name('backups.download');
-        Route::get('/backups/{id}/delete', 'delete')->name('backups.delete');
-        Route::patch('/backups/{id}/restore', 'restore')->name('backups.restore');
+        Route::get('backups', 'index')->name('backups.index');
+        Route::get('backups/create', 'create')->name('backups.create');
+        Route::get('backups/{id}', 'download')->name('backups.download');
+        Route::get('backups/{id}/delete', 'delete')->name('backups.delete');
+        Route::patch('backups/{id}/restore', 'restore')->name('backups.restore');
     });
