@@ -22,7 +22,7 @@
     </div>
     <div class="col-lg-6">
       <div class="form-group mb-3">
-        <x-input type="email" name="email" label="Correo Eletrónico" placeholder="Introduce el correo..." :value="$supplier?->email" />
+        <x-input type="email" name="email" label="Correo Electrónico" placeholder="Introduce el correo..." :value="$supplier?->email" />
       </div>
     </div>
     <div class="col-lg-6">

@@ -1,7 +1,7 @@
 <x-layouts.auth>
 
 <h2 class="mt-3 text-center">Iniciar Sesión</h2>
-<p class="text-center">Introduce tu correo eletrónico y contraseña.</p>
+<p class="text-center">Introduce tu correo electrónico y contraseña.</p>
 <form action="{{ route('auth') }}" method="POST" class="mt-4">
   @csrf
   <div class="row">

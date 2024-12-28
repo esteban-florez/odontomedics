@@ -5,7 +5,7 @@
             Registrar doctor
         </a>
         <a href="{{ route('doctors.pdf') }}" class="btn btn-secondary">
-            Descargar pdf
+            Descargar PDF
         </a>
     </x-slot>
 

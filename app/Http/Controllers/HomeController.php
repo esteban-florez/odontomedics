@@ -24,8 +24,6 @@ class HomeController extends Controller
             ->get();
         $totalEarnings = Bill::whereMonth('created_at', now()->format('m'))
             ->get('total');
-        $totalSales = [200, 500, 100, 200];
-        $netIncome = [100, 200, 300, 400];
 
         $earning_months = array_fill(1, 12, 0);
         $appointments_months = array_fill(1, 12, 0);
@@ -33,7 +31,7 @@ class HomeController extends Controller
 
         $totalEarnings = $totalEarnings->reduce(fn($sum, $earning) => $sum + $earning->total);
         foreach ($appointments as $appointment) {
-            $month = $appointment->date->format('m');
+            $month = (int) $appointment->date->format('m');
             $appointments_months[$month] += 1;
         }
 
@@ -115,8 +113,6 @@ class HomeController extends Controller
             'doctors' => $doctors,
             'treatments' => $treatments,
             'totalEarnings' => $totalEarnings,
-            'totalSales' => $totalSales,
-            'netIncome' => $netIncome,
             'earnings' => $earnings,
             'sales' => $sales,
             'methods_months' => $methods_months,

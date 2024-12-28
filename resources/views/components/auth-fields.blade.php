@@ -6,7 +6,7 @@
 
 <div class="{{ $class }}">
   <div class="form-group mb-3">
-    <x-input type="email" name="email" label="Correo Eletrónico" placeholder="Introduce el correo..." />
+    <x-input type="email" name="email" label="Correo Electrónico" placeholder="Introduce el correo..." />
   </div>
 </div>
 <div class="{{ $class }}">

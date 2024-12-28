@@ -22,7 +22,7 @@
     @if ($admin)
         <x-slot name="rightbar">
             <a href="{{ route('appointments.pdf') }}" class="btn btn-secondary">
-                Descargar pdf
+                Descargar PDF
             </a>
         </x-slot>
     @endif
