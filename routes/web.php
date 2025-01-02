@@ -61,7 +61,7 @@ Route::get('patients/pdf', [PatientController::class, 'pdf'])
     ->name('patients.pdf');
 
 Route::resource('patients', PatientController::class)
-    ->except('show', 'delete');
+    ->except('delete');
 
 Route::get('doctors/pdf', [DoctorController::class, 'pdf'])
     ->name('doctors.pdf');

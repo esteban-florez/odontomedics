@@ -6,6 +6,7 @@ use App\Enums\Code;
 use App\Enums\Gender;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
+use App\Models\Appointment;
 use App\Models\Patient;
 use App\Services\PatientService;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -44,6 +45,28 @@ class PatientController extends Controller
 
         return to_route('patients.index')
             ->with('alert', 'El paciente se ha registrado correctamente.');
+    }
+
+    /**
+     * Show the details of the specified resource.
+     */
+    public function show(Patient $patient)
+    {
+        $patient->load('appointments', 'appointments.doctor', 'appointments.procedure.items', 'appointments.procedure.bill', 'appointments.procedure.treatment');
+
+        $with = ['doctor', 'procedure', 'procedure.treatment'];
+
+        $appointments = Appointment::with($with)
+            ->whereBelongsTo($patient)
+            ->whereNotNull('diagnosis')
+            ->latest()
+            ->limit(3)
+            ->get();
+
+        return view('patients.show', [
+            'patient' => $patient,
+            'appointments' => $appointments,
+        ]);
     }
 
     /**

@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->date('birth');
             $table->enum('gender', Gender::values()->all());
-            $table->string('insurance')->nullable();
-            $table->text('history')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();
         });

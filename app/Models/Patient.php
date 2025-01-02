@@ -13,6 +13,8 @@ class Patient extends Model
 
     protected $with = ['user'];
 
+    protected $casts = ['birth' => 'datetime'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

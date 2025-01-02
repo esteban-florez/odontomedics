@@ -19,20 +19,7 @@
                 <i data-feather="more-horizontal"></i>
             </a>
         </div>
-        <div class="navbar-collapse collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav float-left me-auto ms-lg-3 ps-lg-1">
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">
-                        <form>
-                            <div class="customize-input">
-                                <input class="form-control custom-shadow custom-radius border-0 bg-white" type="search"
-                                    placeholder="Buscar..." aria-label="Search">
-                                <i class="form-control-icon" data-feather="search"></i>
-                            </div>
-                        </form>
-                    </a>
-                </li>
-            </ul>
+        <div class="navbar-collapse collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav float-end">
                 <x-layouts.notifications />
                 <li class="nav-item dropdown">
