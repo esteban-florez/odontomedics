@@ -9,7 +9,8 @@ use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Services\PatientService;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class PatientController extends Controller
@@ -17,10 +18,21 @@ class PatientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $name = $request->query('name');
+        $ci = $request->query('ci');
+        $params = ['like', "%{$name}%"];
+
+        $patients = Patient::when($name, fn(Builder $query)
+            => $query->where('name', ...$params)
+                ->orWhere('surname', ...$params))
+            ->when($ci, fn(Builder $query) => $query->where('ci', 'like', "%{$ci}%"))
+            ->latest()
+            ->get();
+
         return view('patients.index', [
-            'patients' => Patient::latest()->get(),
+            'patients' => $patients,
         ]);
     }
 

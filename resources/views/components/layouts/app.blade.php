@@ -39,7 +39,7 @@
             </h1>
             <x-layouts.breadcrumbs :breadcrumbs="$breadcrumbs" />
           </div>
-          <div>
+          <div class="d-flex align-items-center gap-1">
             {{ $rightbar }}
           </div>
         </div>

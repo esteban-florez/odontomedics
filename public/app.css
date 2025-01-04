@@ -21,3 +21,8 @@
 .form-control, .form-select {
   border-color: #ddd;
 }
+
+.input-group > .search-input {
+  display: inline-block;
+  width: 11rem;
+}
