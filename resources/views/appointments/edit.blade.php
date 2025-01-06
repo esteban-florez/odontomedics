@@ -25,6 +25,11 @@
             <x-select label="Tratamiento" name="procedure_id" :options="$procedures" default="Sin tratamiento" v-model="procedureId" optional />
           </div>
         </div>
+        <div class="col-lg-6" v-if="existing">
+          <div class="form-group mb-3">
+            <x-select label="Estado de progreso" name="progress" :default="false" :options="$progress" />
+          </div>
+        </div>
       </div>
       <div class="col-lg-12 d-flex gap-2 mt-3" v-if="!newProcedure">
         <button type="submit" class="btn btn-success">

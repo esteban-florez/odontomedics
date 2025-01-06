@@ -4,13 +4,13 @@
   $admin = auth()->user()->is_admin;
   $patient = !$admin;
 
-  $group = $admin ? 'Tratamientos' : 'Mis tratamientos';
+  $title = $admin ? 'Lista de Tratamientos' : 'Mis tratamientos';
 
   $cols = $admin ? 8 : 7;
 @endphp
 
 
-<x-layouts.app title="Mis tratamientos" :breadcrumbs="['Inicio', route('procedures.index') => 'Mis tratamientos']">
+<x-layouts.app :title="$title" :breadcrumbs="['Inicio', route('procedures.index') => $title]">
 
 <div class="table-responsive">
   <table class="table">

@@ -60,7 +60,7 @@
           <td class="d-flex align-items-center gap-1">
             <a href="{{ route('patients.show', $patient) }}" class="btn btn-sm btn-info">Detalles</a>
             <a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-warning">Editar</a>
-            <a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-dark">Historial</a>
+            <a href="{{ route('patients.history', $patient) }}" class="btn btn-sm btn-dark">Historial</a>
             <a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-light">Facturas</a>
           </td>
         </tr>

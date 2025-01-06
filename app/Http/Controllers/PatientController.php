@@ -64,14 +64,7 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        $patient->load('appointments', 'appointments.doctor', 'appointments.procedure.items', 'appointments.procedure.bill', 'appointments.procedure.treatment');
-
-        $with = ['doctor', 'procedure', 'procedure.treatment'];
-
-        $appointments = Appointment::with($with)
-            ->whereBelongsTo($patient)
-            ->whereNotNull('diagnosis')
-            ->latest()
+        $appointments = $patient->history()
             ->limit(3)
             ->get();
 

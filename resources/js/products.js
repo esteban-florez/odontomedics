@@ -22,6 +22,7 @@ function setup() {
   const itemsPrice = computed(itemsSum)
   const totalPrice = computed(() => treatmentPrice.value + itemsPrice.value)
   const itemsJson = computed(itemsToJson)
+  const existing = computed(() => !newProcedure.value && procedureId.value !== '')
 
   onMounted(async () => {
     const [productsResponse, treatmentsResponse] = await Promise.all([
@@ -104,6 +105,7 @@ function setup() {
     treatmentPrice,
     itemsPrice,
     totalPrice,
+    existing,
   }
 }
 

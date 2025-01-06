@@ -36,7 +36,7 @@ class HomeController extends Controller
         }
 
         foreach ($bills as $bill) {
-            $month = $bill->created_at->format('m');
+            $month = (int) $bill->created_at->format('m');
             $total = $bill->total;
             $earning_months[$month] += $total;
 

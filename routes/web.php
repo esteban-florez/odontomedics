@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PatientHistoryController;
 use App\Http\Controllers\PendingAppointmentController;
 use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ProductController;
@@ -59,6 +60,9 @@ Route::get('', HomeController::class)->name('home');
 
 Route::get('patients/pdf', [PatientController::class, 'pdf'])
     ->name('patients.pdf');
+
+Route::get('patients/{patient}/history', PatientHistoryController::class)
+    ->name('patients.history');
 
 Route::resource('patients', PatientController::class)
     ->except('delete');

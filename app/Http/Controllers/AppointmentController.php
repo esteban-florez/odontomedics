@@ -111,12 +111,11 @@ class AppointmentController extends Controller
     {
         $data = $request->safe();
         $appointment->diagnosis = $data->input('diagnosis');
+        $finished = $request->input('progress') === Progress::Finished->value
+            ? $appointment->datetime
+            : null;
 
         if ($request->input('procedure_id') === 'new') {
-            $finished = $data->input('progress') === Progress::Finished->value
-                ? now()
-                : null;
-
             $procedure = Procedure::create([
                 ...$data->only(['description', 'finished_at', 'treatment_id']),
                 'finished_at' => $finished,
@@ -145,6 +144,10 @@ class AppointmentController extends Controller
             Notification::send($appointment->patient->user, new BillGenerated($appointment));
         } else {
             $appointment->procedure_id = $data->input('procedure_id');
+            logger('lol', [$appointment->procedure, $finished]);
+            $appointment->procedure->update([
+                'finished_at' => $finished,
+            ]);
         }
 
         $appointment->save();

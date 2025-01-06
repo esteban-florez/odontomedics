@@ -12,6 +12,10 @@ class Procedure extends Model
 {
     use HasFactory, HasSelectable;
 
+    protected $casts = [
+        'finished_at' => 'datetime',
+    ];
+
     public function patient()
     {
         return $this->belongsTo(Patient::class);
