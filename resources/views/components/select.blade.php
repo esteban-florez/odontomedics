@@ -1,6 +1,7 @@
 @props(['label' => null, 'default' => true, 'options' => [], 'value' => null, 'optional' => false])
 
 @php
+  logger($value);
   $name = $attributes->get('name');
   $id = $attributes->has('id') ? $attributes->get('id') : $name;
   $error = $errors->get($name);

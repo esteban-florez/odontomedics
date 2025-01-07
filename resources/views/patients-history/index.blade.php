@@ -28,15 +28,6 @@
           ? "Tratamiento: {$treatment}"
           : "Consulta: $appointment->diagnosis";
       @endphp
-          {{-- historial clinico
-        - citas completadas
-          - fecha y hora
-          - doctor
-          - diagnostico
-        - procedures (si la cita lo posee, se muestra en vez de la cita)
-          - description
-          - finished_at
-          - treatment --}}
       <li class="timeline-item mb-5">
         <span class="timeline-icon {{ $class }}">
           <i data-feather="{{ $icon }}"></i>

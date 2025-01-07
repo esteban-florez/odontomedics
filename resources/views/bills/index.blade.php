@@ -11,6 +11,16 @@
 
 <x-layouts.app :title="$title" :breadcrumbs="[$group, route('procedures.index') => $title]">
 
+@if ($admin)
+  <x-slot name="rightbar">
+    <form method="GET">
+      <x-select class="bg-white" :default="false" name="patient_id" :options="$patients" data-change-reload :value="(int) request()->query('patient_id')">
+        <option value>Todos los pacientes</option>
+      </x-select>
+    </form>
+  </x-slot>
+@endif
+
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -53,4 +63,8 @@
   </table>
 </div>
 
-  </x-layouts.app>
+@push('js')
+  <script type="module" src="{{ asset('js/change-reload.js') }}"></script>
+@endpush
+
+</x-layouts.app>

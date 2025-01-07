@@ -1,7 +1,7 @@
 <x-layouts.app :title="$patient->fullname" :breadcrumbs="['Pacientes', route('patients.show', $patient) => $patient->fullname]" :container="false">
 
 <x-slot name="rightbar">
-  <a href="#" class="btn btn-info">
+  <a href="{{ route('bills.index', ['patient_id' => $patient->id]) }}" class="btn btn-info">
     Historial de facturación
   </a>
 </x-slot>
@@ -37,7 +37,7 @@
     </div>
     <div class="col-6">
       <x-section>
-        <h4 class="text-primary fw-bold">Historial Clínico</h4>
+        <h4 class="text-primary fw-bold">Resumen de Historial Clínico</h4>
         <div class="d-flex flex-column gap-2">
           @forelse ($appointments as $appointment)
             <div class="bg-dark text-white p-2 rounded-4">
@@ -61,7 +61,7 @@
               Este paciente aún no posee historial clínico.
             </p>
           @endforelse
-          <a class="text-decoration-underpne text-center mt-2" href="#">
+          <a class="text-decoration-underline text-center mt-2" href="{{ route('patients.history', $patient) }}">
             Ver todo el historial clínico
           </a>
         </div>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBillRequest;
 use App\Http\Requests\UpdateBillRequest;
 use App\Models\Bill;
+use App\Models\Patient;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BillController extends Controller
@@ -13,11 +15,13 @@ class BillController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
         $with = ['procedure', 'procedure.patient', 'procedure.treatment', 'procedure.items', 'procedure.items.product'];
+
+        $patientId = $request->query('patient_id');
 
         $bills = Bill::with($with)
             ->when(!$user->is_admin, fn(Builder $query) 
@@ -25,11 +29,17 @@ class BillController extends Controller
                     => $sub->where('patient_id', $user->patient->id)
                 )
             )
+            ->when($patientId && $user->is_admin, fn(Builder $query)
+                => $query->whereHas('procedure', fn(Builder $sub)
+                    => $sub->where('patient_id', $patientId)
+                )
+            )
             ->latest()
             ->get();
 
         return view('bills.index', [
             'bills' => $bills,
+            'patients' => Patient::selectable(),
         ]);
     }
 
