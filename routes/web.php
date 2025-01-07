@@ -13,6 +13,7 @@ use App\Http\Controllers\PatientHistoryController;
 use App\Http\Controllers\PendingAppointmentController;
 use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RescheduleController;
 use App\Http\Controllers\SupplierController;
@@ -93,6 +94,9 @@ Route::resource('procedures', ProcedureController::class)
 
 Route::resource('bills', BillController::class)
     ->only('index', 'show');
+
+Route::resource('purchases', PurchaseController::class)
+    ->only('create', 'store');
 
 Route::controller(PendingAppointmentController::class)->group(function () {
     Route::get('appointments/pending', 'index')
