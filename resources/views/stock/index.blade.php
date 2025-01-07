@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Estado de Inventario'" :breadcrumbs="['Inventario', route('stock.index') => 'Estado de Inventario']">
+<x-layouts.app title="Estado de Inventario" :breadcrumbs="['Inventario', route('stock.index') => 'Estado de Inventario']">
 
 <div class="table-responsive">
   <table class="table">
