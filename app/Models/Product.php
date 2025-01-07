@@ -6,6 +6,7 @@ use App\Traits\HasPrice;
 use App\Traits\HasSelectable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -15,11 +16,21 @@ class Product extends Model
         'stock' => 'integer',
     ];
 
-    public function purchases() {
+    public function purchases()
+    {
         return $this->hasMany(Purchase::class);
     }
 
-    public function items() {
+    public function items()
+    {
         return $this->hasMany(Item::class);
+    }
+
+    public function scopeStock(Builder $query): void
+    {
+        $query->join('items', 'items.product_id', '=', 'products.id')
+            ->join('purchases', 'purchases.product_id', '=', 'products.id')
+            ->selectRaw('sum(purchases.amount) - sum(items.amount) as stock')
+            ->groupBy('products.id');
     }
 }

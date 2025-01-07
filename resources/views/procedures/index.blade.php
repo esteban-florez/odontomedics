@@ -25,7 +25,6 @@
         <th scope="col">Costo</th>
         <th scope="col">Descripción</th>
         <th scope="col">Tratamiento</th>
-        <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -50,12 +49,6 @@
           <td>{{ $procedure->bill->ftotal }}</td>
           <td>{{ $procedure->description }}</td>
           <td>{{ $procedure->treatment->name }}</td>
-          <td>
-            {{-- href="{{ route('procedures.show', $procedure) }}" --}}
-            <a class="btn btn-sm btn-primary" href="#">
-              Detalles
-            </a>
-          </td>
         </tr>
       @empty
         <tr>

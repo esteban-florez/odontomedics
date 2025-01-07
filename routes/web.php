@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RescheduleController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TreatmentController;
 use Illuminate\Support\Facades\Route;
@@ -97,6 +98,11 @@ Route::resource('bills', BillController::class)
 
 Route::resource('purchases', PurchaseController::class)
     ->only('create', 'store');
+
+Route::controller(StockController::class)->prefix('stock')->group(function () {
+    Route::get('', 'index')->name('stock.index');
+    Route::get('history', 'history')->name('stock.history');
+});
 
 Route::controller(PendingAppointmentController::class)->group(function () {
     Route::get('appointments/pending', 'index')

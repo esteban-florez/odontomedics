@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-lg-6">
       <div class="form-group mb-3">
-        <x-select name="product_id" label="Producto" :options="$products" />
+        <x-select name="product_id" label="Producto" :options="$products" :value="(int) request()->query('product_id')" />
       </div>
     </div>
     <div class="col-lg-6">
