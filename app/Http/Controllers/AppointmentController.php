@@ -16,6 +16,8 @@ use App\Models\Product;
 use App\Models\Treatment;
 use App\Notifications\AppointmentScheduled;
 use App\Notifications\BillGenerated;
+use App\Notifications\LowStock;
+use App\Services\ItemService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -72,14 +74,6 @@ class AppointmentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Appointment $appointment)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Appointment $appointment)
@@ -122,17 +116,7 @@ class AppointmentController extends Controller
                 'patient_id' => $appointment->patient->id,
             ]);
 
-            $items = json_decode($data->input('items'));
-
-            logger('items', [$items]);
-
-            foreach ($items as $item) {
-                Item::create([
-                    'amount' => $item->amount,
-                    'product_id' => $item->id,
-                    'procedure_id' => $procedure->id,
-                ]);
-            }
+            ItemService::forProcedure($procedure->id, $data);
 
             Bill::create([
                 ...$data->only(['method', 'total']),
@@ -144,7 +128,6 @@ class AppointmentController extends Controller
             Notification::send($appointment->patient->user, new BillGenerated($appointment));
         } else {
             $appointment->procedure_id = $data->input('procedure_id');
-            logger('lol', [$appointment->procedure, $finished]);
             $appointment->procedure->update([
                 'finished_at' => $finished,
             ]);

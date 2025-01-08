@@ -30,7 +30,8 @@ class Product extends Model
     {
         $query->join('items', 'items.product_id', '=', 'products.id')
             ->join('purchases', 'purchases.product_id', '=', 'products.id')
-            ->selectRaw('sum(purchases.amount) - sum(items.amount) as stock')
-            ->groupBy('products.id');
+            ->select('products.*')
+            ->selectRaw('(sum(distinct purchases.amount) - sum(distinct items.amount)) as stock')
+            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.created_at', 'products.updated_at');
     }
 }

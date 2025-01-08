@@ -21,7 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('products', function () {
-    return Product::withSum('purchases as stock', 'amount')
+    return Product::stock()
+        ->addSelect('products.id', 'products.name', 'products.price')
         ->having('stock', '>', 0)
         ->get();
 })->middleware('auth:sanctum');

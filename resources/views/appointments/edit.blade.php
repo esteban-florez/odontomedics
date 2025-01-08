@@ -60,7 +60,7 @@
       <div class="col-lg-12">
         <h4 class="text-dark fw-medium text-center mb-3">Insumos del tratamiento</h4>
         <input type="hidden" name="items" :value="itemsJson">
-        <div class="row mt-4 justify-content-center">
+        <div class="row mt-4">
           <template v-if="available.length > 0">
             <div class="col-lg-4 d-flex align-items-center gap-2">
               Insumo:
@@ -72,14 +72,14 @@
             </div>
             <div class="col-lg-4 d-flex flex-column gap-1">
               <div class="d-flex align-items-center gap-2">
-                Cantidad:
-                <x-input type="number" placeholder="Ej. 2" ::max="max" min="1" v-model.number="amount" ::class="{ 'is-invalid': error }" name="amount" form="new-items-form" />
+                Cantidad (max: @{{ max }}):
+                <x-input class="w-50" type="number" placeholder="Ej. 2" ::max="max" min="1" v-model.number="amount" ::class="{ 'is-invalid': error }" name="amount" form="new-items-form" />
               </div>
               <span class="invalid-feedback d-block mt-n1 w-full text-center" v-if="error">
                 Debe ser un número entero entre 1 y @{{ max }}
               </span>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <button type="submit" class="btn btn-success w-100" :disabled="disabled" form="new-items-form">
                 Añadir insumo
               </button>
