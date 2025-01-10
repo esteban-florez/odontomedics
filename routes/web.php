@@ -112,6 +112,7 @@ Route::controller(PDFController::class)->prefix('pdf')->as('pdf.')->group(functi
     Route::get('patients', 'patients')->name('patients');
     Route::get('appointments', 'appointments')->name('appointments');
     Route::get('doctors', 'doctors')->name('doctors');
+    Route::get('incomes', 'incomes')->name('incomes');
 });
 
 Route::post('notifications', NotificationController::class)

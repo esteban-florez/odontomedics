@@ -1,4 +1,4 @@
-<x-layouts.pdf title="Lista de Citas">
+<x-layouts.pdf-old title="Listado de Citas" :image="$image">
 
 <div class="table-responsive">
   <table style="width: 100%;">
@@ -37,7 +37,7 @@
             <p>{{ $appointment->time->format('H:i A') }}</p>
           </td>
           <td class="cell-bb" style="padding: 1rem; width: 12.5% !important">
-            <p>{{ $appointments->status }}</p>
+            <p>{{ $appointment->status }}</p>
           </td>
           <td class="cell-bb" style="padding: 1rem; width: 12.5% !important">
             <p>{{ $appointment->patient->fullname }}</p>
@@ -61,4 +61,4 @@
   </table>
 </div>
 
-</x-layouts.pdf>
+</x-layouts.pdf-old>

@@ -18,7 +18,7 @@
         <option value>Todos los pacientes</option>
       </x-select>
     </form>
-    <a class="btn btn-secondary ms-2" href="">Reporte de Ingresos</a>
+    <a class="btn btn-secondary ms-2" href="{{ route('pdf.incomes') }}">Reporte de Ingresos</a>
   </x-slot>
 @endif
 

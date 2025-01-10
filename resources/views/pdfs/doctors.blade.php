@@ -1,4 +1,4 @@
-<x-layouts.pdf title="Lista de Doctores">
+<x-layouts.pdf-old title="Listado de Doctores" :image="$image">
 
 <div class="table-responsive">
   <table style="width: 100%;">
@@ -37,4 +37,4 @@
   </table>
 </div>
 
-</x-layouts.pdf>
+</x-layouts.pdf-old>
