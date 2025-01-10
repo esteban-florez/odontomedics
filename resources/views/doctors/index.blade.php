@@ -4,7 +4,7 @@
         <a href="{{ route('doctors.create') }}" class="btn btn-success">
             Registrar doctor
         </a>
-        <a href="{{ route('doctors.pdf') }}" class="btn btn-secondary">
+        <a href="{{ route('pdf.doctors') }}" class="btn btn-secondary">
             Descargar PDF
         </a>
     </x-slot>

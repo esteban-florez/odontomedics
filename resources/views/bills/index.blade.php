@@ -18,6 +18,7 @@
         <option value>Todos los pacientes</option>
       </x-select>
     </form>
+    <a class="btn btn-secondary ms-2" href="">Reporte de Ingresos</a>
   </x-slot>
 @endif
 
@@ -26,7 +27,7 @@
     <thead>
       <tr>
         <th scope="col">Fecha</th>
-        <th scope="col">Tratamiento</th>
+        <th scope="col">Servicio</th>
         @if ($admin)
           <th scope="col">Paciente</th>
         @endif

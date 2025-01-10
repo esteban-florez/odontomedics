@@ -16,7 +16,7 @@
   <a href="{{ route('patients.create') }}" class="btn btn-success flex-shrink-0">
     Registrar paciente
   </a>
-  <a href="{{ route('patients.pdf') }}" class="btn btn-secondary flex-shrink-0">
+  <a href="{{ route('pdf.patients') }}" class="btn btn-secondary flex-shrink-0">
     Descargar PDF
   </a>
 </x-slot>

@@ -18,7 +18,7 @@
 @endif
 @if ($admin)
   <x-slot name="rightbar">
-    <a href="{{ route('appointments.pdf') }}" class="btn btn-secondary">
+    <a href="{{ route('pdf.appointments') }}" class="btn btn-secondary">
       Descargar PDF 
     </a>
   </x-slot>
@@ -43,34 +43,22 @@
     <tbody>
       @forelse ($appointments as $appointment)
         @php
-          $badge = match ($appointment->status) {
-              Status::Pending => 'text-bg-secondary',
-              Status::Canceled => 'text-bg-danger',
-              Status::Approved => 'text-bg-success',
-              Status::Unfilled => 'text-bg-warning',
-              Status::Completed => 'text-bg-primary',
-          };
-
           $status = $appointment->status;
-
           $unfilled = $status === Status::Unfilled;
-          $canceled = $status === Status::Canceled;
           $completed = $status === Status::Completed;
-
-          $defaultDoctor = $canceled ? 'No asignado' : 'Por asignar';
         @endphp
         <tr>
           <td>{{ $appointment->date->format('d-m-Y') }}</td>
           <td>{{ $appointment->time->format('H:i A') }}</td>
           <td>
-            <span class="badge {{ $badge }} fw-medium">
+            <span class="badge {{ $appointment->badge }} fw-medium">
               {{ $status }}
             </span>
           </td>
           @if ($admin)
             <td>{{ $appointment->patient->fullname }}</td>
           @endif
-          <td>{{ $appointment->doctor?->fullname ?? $defaultDoctor }}</td>
+          <td>{{ $appointment->doctor_name }}</td>
           <td>{{ $appointment->diagnosis ?? 'N/A' }}</td>
           <td>{{ $appointment->procedure?->treatment?->name ?? 'N/A' }}</td>
           <td>

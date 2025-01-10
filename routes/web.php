@@ -10,6 +10,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientHistoryController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PendingAppointmentController;
 use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ProductController;
@@ -60,19 +61,13 @@ Route::withoutMiddleware('auth')->middleware('guest')->group(function () {
 
 Route::get('', HomeController::class)->name('home');
 
-Route::get('patients/pdf', [PatientController::class, 'pdf'])
-    ->name('patients.pdf');
-
 Route::get('patients/{patient}/history', PatientHistoryController::class)
     ->name('patients.history');
 
 Route::resource('patients', PatientController::class)
     ->except('delete');
 
-Route::get('doctors/pdf', [DoctorController::class, 'pdf'])
-    ->name('doctors.pdf');
-
-Route::resource('doctors', controller: DoctorController::class)
+Route::resource('doctors', DoctorController::class)
     ->except('show', 'delete');
 
 Route::resource('treatments', TreatmentController::class)
@@ -83,9 +78,6 @@ Route::resource('products', ProductController::class)
 
 Route::resource('suppliers', SupplierController::class)
     ->except('show', 'delete');
-
-Route::get('appointments/pdf', [AppointmentController::class, 'pdf'])
-    ->name('appointments.pdf');
 
 Route::resource('appointments', AppointmentController::class)
     ->except('show');
@@ -104,16 +96,23 @@ Route::controller(StockController::class)->prefix('stock')->group(function () {
     Route::get('history', 'history')->name('stock.history');
 });
 
-Route::controller(PendingAppointmentController::class)->group(function () {
-    Route::get('appointments/pending', 'index')
-        ->name('pending-appointments.index');
+Route::controller(PendingAppointmentController::class)
+    ->prefix('appointments/pending')->as('pending-appointments.')->group(function () {
+        Route::get('', 'index')
+            ->name('index');
 
-    Route::patch('appointments/pending/{appointment}', 'update')
-        ->name('pending-appointments.update');
-});
+        Route::patch('{appointment}', 'update')
+            ->name('update');
+    });
 
 Route::patch('appointments/reschedule/{appointment}', RescheduleController::class)
     ->name('reschedule-appointment');
+
+Route::controller(PDFController::class)->prefix('pdf')->as('pdf.')->group(function () {
+    Route::get('patients', 'patients')->name('patients');
+    Route::get('appointments', 'appointments')->name('appointments');
+    Route::get('doctors', 'doctors')->name('doctors');
+});
 
 Route::post('notifications', NotificationController::class)
     ->name('notifications');
@@ -126,3 +125,4 @@ Route::controller(BackupController::class)
         Route::get('backups/{id}/delete', 'delete')->name('backups.delete');
         Route::patch('backups/{id}/restore', 'restore')->name('backups.restore');
     });
+
