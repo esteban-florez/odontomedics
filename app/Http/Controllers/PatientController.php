@@ -98,16 +98,4 @@ class PatientController extends Controller
         return to_route('patients.index')
             ->with('alert', 'El paciente se ha editado correctamente');
     }
-
-    public function pdf()
-    {
-        $patients = Patient::latest()->get();
-        $image = base64_encode(file_get_contents(public_path('img/logo.png')));
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdfs.patients', ['patients' => $patients, 'image' => $image]);
-        return $pdf->stream();
-        // $pdf = Pdf::loadView('pdfs.patients');
-        // $name = 'Lista de pacientes ' . now()->translatedFormat('d-m-Y') . '.pdf';
-        // return $pdf->download($name);
-    }
 }
