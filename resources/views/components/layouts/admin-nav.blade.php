@@ -43,7 +43,7 @@
 
 <li class="sidebar-item">
   <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-    <i data-feather="file-text" class="feather-icon"></i>
+    <i data-feather="dollar-sign" class="feather-icon"></i>
     <span class="hide-menu pt-1">Facturación</span>
   </a>
   <ul aria-expanded="false" class="collapse first-level base-level-line">
@@ -74,6 +74,20 @@
     <li class="sidebar-item">
       <a href="{{ route('purchases.create') }}" class="sidebar-link">
         <span class="hide-menu">Registrar Pedido</span>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li class="sidebar-item">
+  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+    <i data-feather="file-text" class="feather-icon"></i>
+    <span class="hide-menu pt-1">Reportes</span>
+  </a>
+  <ul aria-expanded="false" class="collapse first-level base-level-line">
+    <li class="sidebar-item">
+      <a href="{{ route('reports') }}" class="sidebar-link">
+        <span class="hide-menu">Reportes PDF</span>
       </a>
     </li>
   </ul>

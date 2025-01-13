@@ -126,3 +126,6 @@ Route::controller(BackupController::class)
         Route::get('backups/{id}/delete', 'delete')->name('backups.delete');
         Route::patch('backups/{id}/restore', 'restore')->name('backups.restore');
     });
+
+Route::view('reports', 'reports')
+    ->name('reports');

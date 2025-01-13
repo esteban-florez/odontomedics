@@ -34,10 +34,6 @@
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
-                        <a class="dropdown-item mt-2" href="javascript:void(0)"><i data-feather="user"
-                                class="icon-sm me-2 ms-1"></i>
-                            Mi Perfil</a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="javascript:void(0)" data-form="logout">
                             <i data-feather="power" class="icon-sm me-2 ms-1"></i>
                             Cerrar Sesión

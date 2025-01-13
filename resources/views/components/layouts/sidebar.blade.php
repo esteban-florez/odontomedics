@@ -12,14 +12,6 @@
         <li class="nav-small-cap"><span class="hide-menu">Mi cuenta</span></li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link sidebar-link" aria-expanded="false" href="javascript:void(0)">
-            <i data-feather="user" class="feather-icon"></i>
-            <span class="hide-menu pt-1">
-              Mi Perfil
-            </span>
-          </a>
-        </li>
-        <li class="sidebar-item">
           <a class="sidebar-link sidebar-link" aria-expanded="false" href="javascript:void(0)" data-form="logout">
             <i data-feather="log-out" class="feather-icon"></i>
             <span class="hide-menu pt-1">

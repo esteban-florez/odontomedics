@@ -26,3 +26,12 @@
   display: inline-block;
   width: 11rem;
 }
+
+.topbar > .navbar {
+  background-color: white;
+}
+
+.dropdown > .dropdown-menu {
+  padding-top: 8px;
+  background-color: white;
+}
