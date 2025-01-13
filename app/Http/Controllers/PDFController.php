@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Number;
+use stdClass;
 
 class PDFController extends Controller
 {
@@ -33,17 +36,44 @@ class PDFController extends Controller
 
     public function incomes()
     {
-        $monthly = DB::table('bills')
+        $monthly = new stdClass;
+        $yearly = new stdClass;
+
+        $monthly->rows = DB::table('bills')
             ->selectRaw('SUM(`total`) as income, MIN(`created_at`) as `date`')
             ->groupByRaw('CONCAT(YEAR(`created_at`), MONTH(`created_at`))')
             ->orderBy('date')
             ->get();
 
-        $yearly = DB::table('bills')
-            ->selectRaw('SUM(`total`), YEAR(`created_at`) as `date`')
+        $monthly->total = 0;
+        $monthly->rows = $monthly->rows->map(function ($row) use ($monthly) {
+            $monthly->total += $row->income;
+            $date = Carbon::parse($row->date);
+
+            $income = (int) $row->income / 100;
+            $month = ucfirst($date->locale('es')->monthName);
+
+            $row->date = "$month ($date->year)";
+            $row->income = $this->currency($income);
+            return $row;
+        });
+
+        $yearly->rows = DB::table('bills')
+            ->selectRaw('SUM(`total`) as income, YEAR(`created_at`) as `date`')
             ->groupBy('date')
             ->orderBy('date')
             ->get();
+
+        $yearly->total = 0;
+        $yearly->rows = $yearly->rows->map(function ($row) use ($yearly) {
+            $yearly->total += $row->income;
+            $income = (int) $row->income / 100;
+            $row->income = $this->currency($income);
+            return $row;
+        });
+
+        $monthly->total = $this->currency($monthly->total / 100);
+        $yearly->total = $this->currency($yearly->total / 100);
 
         return $this->loadPDF('incomes', [
             'monthly' => $monthly,
@@ -60,5 +90,11 @@ class PDFController extends Controller
         $pdf->loadView("pdfs.$view", $data);
 
         return $pdf->stream();
+    }
+
+    private function currency(float|int $number)
+    {
+        $formatted = Number::format($number / 1000, precision: 2, locale: 'es');
+        return "$formatted $";
     }
 }

@@ -49,6 +49,19 @@
       margin-bottom: 2rem;
       font-size: 1.6rem;
     }
+
+    .bold {
+      font-weight: bold;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 2.5rem;
+      left: 0;
+      right: 0;
+      width: 100%;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -62,6 +75,10 @@
   </header>
   <h1>{{ $title }}</h1>
   {{ $slot }}
+
+  <footer>
+    Todos los derechos reservados | Odontomedics ({{ now()->year }})
+  </footer>
 </body>
 
 </html>
