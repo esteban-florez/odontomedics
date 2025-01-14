@@ -3,7 +3,7 @@
 @foreach ($data->rows as $row)
   <x-row class="border border-primary border-bottom-0">
     <td class="p-1">{{ $row->date }}</td>
-    <td class="p-1 text-end">{{ $row->income }}</td>
+    <td class="p-1 text-end">{{ $row->income ?? $row->count }}</td>
   </x-row>
 @endforeach
 <x-row class="border border-primary bg-primary text-white bold">

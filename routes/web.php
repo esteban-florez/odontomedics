@@ -114,6 +114,7 @@ Route::controller(PDFController::class)->prefix('pdf')->as('pdf.')->group(functi
     Route::get('doctors', 'doctors')->name('doctors');
     Route::get('incomes', 'incomes')->name('incomes');
     Route::get('stock', 'stock')->name('stock');
+    Route::get('monthly-appointments', 'monthly')->name('monthly-appointments');
 });
 
 Route::post('notifications', NotificationController::class)

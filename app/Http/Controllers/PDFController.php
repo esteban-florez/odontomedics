@@ -42,6 +42,7 @@ class PDFController extends Controller
 
         $monthly->rows = DB::table('bills')
             ->selectRaw('SUM(`total`) as income, MIN(`created_at`) as `date`')
+            ->where('created_at', '>=', $this->yearAgo())
             ->groupByRaw('CONCAT(YEAR(`created_at`), MONTH(`created_at`))')
             ->orderBy('date')
             ->get();
@@ -49,13 +50,8 @@ class PDFController extends Controller
         $monthly->total = 0;
         $monthly->rows = $monthly->rows->map(function ($row) use ($monthly) {
             $monthly->total += $row->income;
-            $date = Carbon::parse($row->date);
-
-            $income = (int) $row->income / 100;
-            $month = ucfirst($date->locale('es')->monthName);
-
-            $row->date = "$month ($date->year)";
-            $row->income = $this->currency($income);
+            $row->date = $this->date($row->date);
+            $row->income = $this->currency($row->income);
             return $row;
         });
 
@@ -68,13 +64,12 @@ class PDFController extends Controller
         $yearly->total = 0;
         $yearly->rows = $yearly->rows->map(function ($row) use ($yearly) {
             $yearly->total += $row->income;
-            $income = (int) $row->income / 100;
-            $row->income = $this->currency($income);
+            $row->income = $this->currency($row->income);
             return $row;
         });
 
-        $monthly->total = $this->currency($monthly->total / 100);
-        $yearly->total = $this->currency($yearly->total / 100);
+        $monthly->total = $this->currency($monthly->total);
+        $yearly->total = $this->currency($yearly->total);
 
         return $this->loadPDF('incomes', [
             'monthly' => $monthly,
@@ -89,7 +84,25 @@ class PDFController extends Controller
 
     public function monthly()
     {
+        $data = new stdClass;
 
+        $data->rows = DB::table('appointments')
+            ->selectRaw('COUNT(`id`) as `count`, MIN(`created_at`) as `date`')
+            ->where('created_at', '>=', $this->yearAgo())
+            ->groupByRaw('CONCAT(YEAR(`created_at`), MONTH(`created_at`))')
+            ->orderBy('date')
+            ->get();
+
+        $data->total = 0;
+        $data->rows = $data->rows->map(function ($row) use ($data) {
+            $data->total += $row->count;
+            $row->date = $this->date($row->date);
+            return $row;
+        });
+
+        return $this->loadPDF('monthly-appointments', [
+            'data' => $data,
+        ]);
     }
 
     public function treatments()
@@ -119,9 +132,23 @@ class PDFController extends Controller
         return $pdf->stream();
     }
 
-    private function currency(float|int $number)
+    private function currency(string|float|int $income)
     {
-        $formatted = Number::format($number / 1000, precision: 2, locale: 'es');
+        $number = (float) $income / 100;
+        $formatted = Number::format($number, precision: 2, locale: 'es');
         return "$formatted $";
+    }
+
+    private function date(string $datestr)
+    {
+        $date = Carbon::parse($datestr);
+        $month = ucfirst($date->locale('es')->monthName);
+        return "$month ($date->year)";
+    }
+
+    private function yearAgo()
+    {
+        return now()->subYear()->addMonth()
+            ->setDay(1)->setTime(0, 0, 0, 0);
     }
 }

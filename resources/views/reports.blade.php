@@ -18,7 +18,7 @@
         <div class="card-body">
           <h4 class="card-title">Citas por mes</h4>
           <p class="card-text">Este reporte la cantidad de citas registradas mensualmente en el sistema.</p>
-          <a href="#" class="btn btn-primary">Ver reporte PDF</a>
+          <a href="{{ route('pdf.monthly-appointments') }}" class="btn btn-primary">Ver reporte PDF</a>
         </div>
       </div>
     </div>
