@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\Product;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -78,6 +79,32 @@ class PDFController extends Controller
         return $this->loadPDF('incomes', [
             'monthly' => $monthly,
             'yearly' => $yearly,
+        ]);
+    }
+
+    public function active()
+    {
+
+    }
+
+    public function monthly()
+    {
+
+    }
+
+    public function treatments()
+    {
+
+    }
+
+    public function stock()
+    {
+        $products = Product::stock()
+            ->orderBy('products.created_at', 'DESC')
+            ->get();
+
+        return $this->loadPDF('stock', [
+            'products' => $products,
         ]);
     }
 

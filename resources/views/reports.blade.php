@@ -38,7 +38,7 @@
         <div class="card-body">
           <h4 class="card-title">Stock de insumos</h4>
           <p class="card-text">Este reporte muestra el estado actual del stock de los insumos en el inventario.</p>
-          <a href="#" class="btn btn-primary">Ver reporte PDF</a>
+          <a href="{{ route('pdf.stock') }}" class="btn btn-primary">Ver reporte PDF</a>
         </div>
       </div>
     </div>
