@@ -107,7 +107,27 @@ class PDFController extends Controller
 
     public function treatments()
     {
+        $data = new stdClass;
 
+        $data->rows = DB::table('bills')
+            ->join('procedures', 'bills.procedure_id', '=', 'procedures.id')
+            ->join('treatments', 'procedures.treatment_id', '=', 'treatments.id')
+            ->selectRaw('SUM(`bills`.`total`) as `income`, `treatments`.`name` as `name`')
+            ->groupBy('name')
+            ->get();
+
+        $data->total = 0;
+        $data->rows = $data->rows->map(function ($row) use ($data) {
+            $data->total += $row->income;
+            $row->income = $this->currency($row->income);
+            return $row;
+        });
+
+        $data->total = $this->currency($data->total);
+
+        return $this->loadPDF('treatments-income', [
+            'data' => $data,
+        ]);
     }
 
     public function stock()

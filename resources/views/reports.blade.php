@@ -28,7 +28,7 @@
         <div class="card-body">
           <h4 class="card-title">Ingresos por servicio</h4>
           <p class="card-text">Este reporte muestra la cantidad de ingresos categorizados por los servicios ofrecidos.</p>
-          <a href="#" class="btn btn-primary">Ver reporte PDF</a>
+          <a href="{{ route('pdf.treatments-income') }}" class="btn btn-primary">Ver reporte PDF</a>
         </div>
       </div>
     </div>
