@@ -6,9 +6,9 @@
       <div class="card border-dark rounded-4">
         <img class="w-100 rounded-top-4" height="150" src="{{ asset('img/pacientes.jpg') }}" class="card-img-top" alt="Imagen de pacientes en clinica" style="object-fit: cover">
         <div class="card-body">
-          <h4 class="card-title">Pacientes activos</h4>
+          <h4 class="card-title">Pacientes más activos</h4>
           <p class="card-text">Este reporte muestra cuales son los pacientes más activos dentro del sistema.</p>
-          <a href="#" class="btn btn-primary">Ver reporte PDF</a>
+          <a href="{{ route('pdf.active-patients') }}" class="btn btn-primary">Ver reporte PDF</a>
         </div>
       </div>
     </div>

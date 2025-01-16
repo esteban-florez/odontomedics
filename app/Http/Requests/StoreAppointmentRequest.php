@@ -17,7 +17,7 @@ class StoreAppointmentRequest extends FormRequest
         $inThreeMonths = now()->addMonth(3)->format('d-m-Y');
 
         return [
-            'date' => ['required', 'date', 'after_or_equal:tomorrow', 'before_or_equal:'.$inThreeMonths],
+            'date' => ['required', 'date', 'after:today', 'before_or_equal:'.$inThreeMonths],
             'time' => ['required', 'date_format:H:i', 'after_or_equal:07:00', 'before_or_equal:17:00'],
         ];
     }

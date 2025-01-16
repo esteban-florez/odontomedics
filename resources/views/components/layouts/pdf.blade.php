@@ -63,6 +63,7 @@
       text-align: center;
     }
   </style>
+  {{ $css ?? '' }}
 </head>
 
 <body>

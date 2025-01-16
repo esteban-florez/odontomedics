@@ -79,7 +79,20 @@ class PDFController extends Controller
 
     public function active()
     {
+        $app = 'COUNT(`appointments`.`id`)';
+        $pro = 'COUNT(`procedures`.`id`)';
 
+        $patients = Patient::leftJoin('appointments', 'appointments.patient_id', '=', 'patients.id')
+            ->leftJoin('procedures', 'appointments.procedure_id', '=', 'procedures.id')
+            ->selectRaw("$app as `appointments_count`, $pro as `procedures_count`, ($app + $pro) as `activity`")
+            ->addSelect('name', 'surname', 'ci')
+            ->orderBy('activity', 'DESC')
+            ->groupBy('name', 'surname', 'ci')
+            ->get();
+
+        return $this->loadPDF('active-patients', [
+            'patients' => $patients,
+        ]);
     }
 
     public function monthly()
@@ -110,8 +123,8 @@ class PDFController extends Controller
         $data = new stdClass;
 
         $data->rows = DB::table('bills')
-            ->join('procedures', 'bills.procedure_id', '=', 'procedures.id')
-            ->join('treatments', 'procedures.treatment_id', '=', 'treatments.id')
+            ->leftJoin('procedures', 'bills.procedure_id', '=', 'procedures.id')
+            ->leftJoin('treatments', 'procedures.treatment_id', '=', 'treatments.id')
             ->selectRaw('SUM(`bills`.`total`) as `income`, `treatments`.`name` as `name`')
             ->groupBy('name')
             ->get();
