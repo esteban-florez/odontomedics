@@ -4,6 +4,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
@@ -133,3 +134,11 @@ Route::controller(BackupController::class)
 
 Route::view('reports', 'reports')
     ->name('reports');
+
+Route::controller(HelpController::class)
+    ->prefix('help')
+    ->as('help.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('{slug}', 'show')->name('show');
+    });
